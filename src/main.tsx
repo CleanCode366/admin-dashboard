@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { StyleSheetManager } from 'styled-components';
 import './index.css';
-import { enablePhonetic } from "./services/inputInterceptor.ts";
+import { enablePhonetic } from "@services/inputInterceptor.ts";
 
 enablePhonetic();
 /**
