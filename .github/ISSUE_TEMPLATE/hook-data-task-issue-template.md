@@ -1,8 +1,8 @@
 ---
 name: Hook/Data Task issue template
 about: Create a report to describe hook or data requirements.
-title: "[HOOK TASK]"
-labels: enhancement
+title: 'HOOK: '
+labels: 'enhancement, type: hook'
 assignees: ''
 type: Task
 

@@ -1,8 +1,8 @@
 ---
 name: Feature Ticket Template
 about: Feature implementation Ticket
-title: "[Feature]"
-labels: enhancement
+title: 'Feature: '
+labels: enhancement, feature
 assignees: ''
 type: Feature
 

@@ -1,8 +1,8 @@
 ---
 name: Page Task  issue template
 about: Create a report to describe a task that needs to be developed.
-title: "[Page Task]"
-labels: ''
+title: 'Page: '
+labels: 'enhancement, type: page'
 assignees: ''
 type: Task
 

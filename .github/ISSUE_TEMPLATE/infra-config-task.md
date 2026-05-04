@@ -1,8 +1,8 @@
 ---
 name: Infra/Config Task
 about: Infrastructure related and configuration specific issues.
-title: "[CONFIG]"
-labels: enhancement
+title: 'CONFIG: '
+labels: 'enhancement, type: infra'
 assignees: ''
 type: Task
 

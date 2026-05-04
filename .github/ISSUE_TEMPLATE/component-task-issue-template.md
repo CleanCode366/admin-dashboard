@@ -1,7 +1,7 @@
 ---
 name: Component Task issue template
 about: Create a report to describe component functionality
-title: "[Component Task]"
+title: 'COMPONENT: '
 labels: enhancement
 assignees: ''
 type: Task

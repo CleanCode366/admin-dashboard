@@ -1,8 +1,8 @@
 ---
 name: Test Task issue template
 about: Describe this issue template's purpose here.
-title: "[TEST]"
-labels: enhancement
+title: 'TEST: '
+labels: 'enhancement, type: test'
 assignees: ''
 type: Task
 
