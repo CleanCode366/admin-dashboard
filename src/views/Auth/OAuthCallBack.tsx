@@ -5,6 +5,9 @@ import AuthContext from "@/context/AuthContext";
 import cdacRoundLogo from '@/assets/cdacroundlogo.png';
 import { getPostLoginRedirect } from "@/utils/postLoginRedirect";
 
+const MOCK_AUTH = true; // ← toggle this later
+
+
 const MAX_REFRESH_RETRIES = 3;
 const RETRY_DELAY_MS = 700;
 const OAUTH_CALLBACK_GUARD_KEY = "auth:oauth-callback-processed";
@@ -13,7 +16,15 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const OAuthCallback = () => {
   const navigate = useNavigate();
-  const { loginSuccess } = useContext(AuthContext);
+  let loginSuccess: boolean;
+
+  if (MOCK_AUTH) {
+    loginSuccess = true; // simulate successful login
+  } else {
+    // fallback if you later reintroduce context
+    const ctx = useContext(AuthContext);
+    loginSuccess = ctx?.loginSuccess ?? false;
+  }
 
   useEffect(() => {
     // React StrictMode runs effects twice in development.

@@ -1,6 +1,6 @@
-import OAuthCallback from "@views/Auth/OAuthCallBack";
+// import OAuthCallback from "@views/Auth/OAuthCallBack";
 import BaseLayout from "@layouts/MainLayout/BaseLayout";
-import NotFound from "@views/NotFound/NotFound";
+// import NotFound from "@views/NotFound/NotFound";
 // import HomePage from "@/views/Home/Home";
 // import InscriptionDetails from "@/views/InscriptionDetailPage.tsx/InscriptionDetails";
 // import Upload from "@/views/Upload/Upload";
@@ -11,6 +11,8 @@ import NotFound from "@views/NotFound/NotFound";
 // import Profile1 from "@views/Profile/Profile1";
 // import Setting from "@views/Setting/Setting";
 import { Navigate } from "react-router-dom";
+import TestCard from "@/TestCard";
+import LoginCard from "@/LoginCard";
 
 const MainRoutes = {
   path: '/',
@@ -19,18 +21,12 @@ const MainRoutes = {
     {
       index: true,
       element: (
-        <Navigate to="oauth/callback" replace />
-      )
-    },
-    {
-      path: 'oauth/callback',
-      element: (
-        <OAuthCallback />
+        <LoginCard />
       )
     },
     {
       path: '*',
-      element: <NotFound />
+      element: <TestCard />
     }
   ]
 };
