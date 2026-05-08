@@ -1,8 +1,8 @@
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
-import { defineConfig } from 'vite';
-import removeConsole from "vite-plugin-remove-console";
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react-swc'
+import path from 'path'
+import { defineConfig } from 'vite'
+import removeConsole from 'vite-plugin-remove-console'
 
 export default defineConfig({
   base: '/',
@@ -25,12 +25,12 @@ export default defineConfig({
             displayName: true,
             pure: true,
             ssr: false,
-          }
-        ]
-      ]
+          },
+        ],
+      ],
     }),
     removeConsole({
-      includes: ["log", "warn", "error", "debug"],
+      includes: ['log', 'warn', 'error', 'debug'],
     }),
     tailwindcss(),
   ],
@@ -38,7 +38,7 @@ export default defineConfig({
   css: {
     modules: {
       localsConvention: 'camelCase',
-    }
+    },
   },
 
   resolve: {
@@ -61,4 +61,4 @@ export default defineConfig({
       '@views': path.resolve(__dirname, './src/views'),
     },
   },
-});
+})

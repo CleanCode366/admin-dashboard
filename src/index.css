@@ -1,15 +1,15 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Primary colors */
-  --color-primary: #E27E03;
-  --color-primary-dark: #C16C03;
+  --color-primary: #e27e03;
+  --color-primary-dark: #c16c03;
   --color-primary-dark: #cc6e03;
   --color-primary-light: #f08d1a;
-  --color-primary-text: #FFFFFF;
+  --color-primary-text: #ffffff;
   --color-primary-text-dark: #000000;
   /* Set both background-color and background-image for better compatibility */
-  --color-primary-background-color: #FFFFFF;
+  --color-primary-background-color: #ffffff;
   /* --color-primary-background-image: radial-gradient(circle at center, rgba(255, 255, 255, 1) 51%, rgba(255, 255, 255, 1) 21%, rgba(237, 221, 83, 1) 100%); */
   --color-primary-background-dark: #0d0d0d;
   --color-primary-background-light: #1f1f1f;
@@ -18,21 +18,25 @@
   --color-secondary: #323232;
   --color-secondary-dark: #222222;
   --color-secondary-light: #4a4a4a;
-  --color-secondary-text: #B0B0B0;
+  --color-secondary-text: #b0b0b0;
   --color-secondary-text-dark: #8d8d8d;
   --color-secondary-background: none;
   --color-secondary-background-dark: #1f1f1f;
   --color-secondary-background-light: #4a4a4a;
-
 }
-
 
 .borderRed {
   border: 2px solid red;
 }
 
 .navbar-gradient {
-  background: linear-gradient(to right, rgba(0, 1, 71, 1) 0%, rgb(22, 24, 157) 33%, rgb(51, 53, 154) 66%, #000147 100%);
+  background: linear-gradient(
+    to right,
+    rgba(0, 1, 71, 1) 0%,
+    rgb(22, 24, 157) 33%,
+    rgb(51, 53, 154) 66%,
+    #000147 100%
+  );
 }
 
 .floating-navbar {
@@ -50,7 +54,7 @@
   margin: 0;
   background-size: auto;
   background-position: top;
-  border-radius: 30px
+  border-radius: 30px;
 }
 
 .card-styling {
@@ -80,7 +84,6 @@
   transition: all 0.3s ease-in-out;
   background: #ffde71;
 }
-
 
 /* Hide scrollbars globally */
 * {
@@ -216,11 +219,11 @@
 }
 
 .profile-stats-pc {
-  display: block
+  display: block;
 }
 
 .profile-stats-mob {
-  display: none
+  display: none;
 }
 
 .view-card-instruction-mob {
@@ -235,7 +238,6 @@
   .view-card-instruction-mob {
     display: block;
     font-size: 0.7rem !important;
-
   }
 
   .mobile-navbar {
@@ -244,7 +246,13 @@
     width: 100%;
     position: fixed;
     z-index: 999;
-    background: linear-gradient(to right, rgba(0, 1, 71, 1) 0%, rgb(22, 24, 157) 33%, rgb(51, 53, 154) 66%, #000147 100%);
+    background: linear-gradient(
+      to right,
+      rgba(0, 1, 71, 1) 0%,
+      rgb(22, 24, 157) 33%,
+      rgb(51, 53, 154) 66%,
+      #000147 100%
+    );
     overflow: hidden;
     animation: mobile-navbar-slide-right 0.3s ease-in-out;
   }
@@ -307,11 +315,11 @@
   }
 
   .profile-stats-pc {
-    display: none
+    display: none;
   }
 
   .profile-stats-mob {
-    display: block
+    display: block;
   }
 
   .post-rating-like-share {
@@ -319,8 +327,7 @@
     /* align-items: center; */
   }
 
-  .post-rating-like-share>div {
+  .post-rating-like-share > div {
     margin-bottom: 1rem;
   }
-
 }

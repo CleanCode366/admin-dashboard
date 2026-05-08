@@ -1,8 +1,6 @@
-import { createAxiosClient } from "../axiosFactory";
+import { createAxiosClient } from '../axiosFactory'
 
-const backendApiUrl = window._env_?.VITE_BACKEND_API_URL || import.meta.env.VITE_BACKEND_API_URL;
+const backendApiUrl = window._env_?.VITE_BACKEND_API_URL || import.meta.env.VITE_BACKEND_API_URL
 // FOR CALLING PUBLIC BACKEND APIS
 
-export const apiClient = createAxiosClient(
-    backendApiUrl, []
-)
+export const apiClient = createAxiosClient(backendApiUrl, [])
