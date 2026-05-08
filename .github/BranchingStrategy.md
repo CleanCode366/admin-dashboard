@@ -16,10 +16,10 @@ The goals of this strategy are:
 
 # Branch Overview
 
-| Branch | Purpose |
-|---|---|
-| `main` | Production-ready stable code |
-| `dev` | Active development and integration branch |
+| Branch | Purpose                                   |
+| ------ | ----------------------------------------- |
+| `main` | Production-ready stable code              |
+| `dev`  | Active development and integration branch |
 
 ---
 
@@ -70,7 +70,7 @@ Format:
 
 ```text
 <type>/<issue-id>-<short-description>
-````
+```
 
 Example:
 
@@ -195,11 +195,11 @@ dev
 
 The following validations must pass before merge:
 
-* Linting
-* Type checking
-* Tests
-* Build validation
-* Accessibility checks (frontend)
+- Linting
+- Type checking
+- Tests
+- Build validation
+- Accessibility checks (frontend)
 
 ---
 
@@ -310,9 +310,9 @@ Every hotfix merged into `main` must also be merged back into `dev`.
 
 This prevents:
 
-* branch divergence
-* bug reintroduction
-* inconsistent releases
+- branch divergence
+- bug reintroduction
+- inconsistent releases
 
 ---
 
@@ -322,16 +322,16 @@ This prevents:
 
 Runs on:
 
-* PRs to `dev`
-* PRs to `main`
+- PRs to `dev`
+- PRs to `main`
 
 Validates:
 
-* linting
-* tests
-* type checking
-* build
-* accessibility
+- linting
+- tests
+- type checking
+- build
+- accessibility
 
 ---
 
@@ -345,8 +345,8 @@ push -> dev
 
 Deploys:
 
-* development environment
-* latest integration build
+- development environment
+- latest integration build
 
 ---
 
@@ -360,8 +360,8 @@ git tag v*
 
 Builds:
 
-* production Docker images
-* immutable release artifacts
+- production Docker images
+- immutable release artifacts
 
 ---
 
