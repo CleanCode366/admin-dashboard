@@ -12,6 +12,12 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "eslint ."
+    ]
+  },
   "dependencies": {
     "@mui/icons-material": "^7.3.0",
     "@mui/material": "^7.3.0",
