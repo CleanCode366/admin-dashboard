@@ -1,5 +1,6 @@
 // context/AuthContext.tsx
 import React, { createContext, useState, useEffect, useRef, useCallback } from "react";
+import type { AxiosError } from "axios";
 import { authStore } from "@store/authStore";
 import { authClient } from "@/utils/http/clients/authClient.client";
 import { apiClient } from "@/utils/http/clients/backendApiClientGeneral";
@@ -89,7 +90,9 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
       try {
         const stack = new Error().stack;
         console.warn("loginSuccess called with undefined token, stack:\n", stack);
-      } catch { }
+      } catch {
+        // intentional empty catch for stack logging
+      }
     }
     setIsAuthenticated(true);
   };
@@ -111,9 +114,9 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
       return false;
     } catch (error) {
       console.error("Logout failed:", {
-        message: (error as any)?.message,
-        response: (error as any)?.response?.data,
-        status: (error as any)?.response?.status,
+        message: (error as AxiosError)?.message,
+        response: (error as AxiosError)?.response?.data,
+        status: (error as AxiosError)?.response?.status,
       });
       return false;
     }
@@ -146,9 +149,9 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         }
       } catch (error) {
         console.error("AuthContext.bootstrap: refresh failed:", {
-          message: (error as any)?.message,
-          response: (error as any)?.response?.data,
-          status: (error as any)?.response?.status,
+          message: (error as AxiosError)?.message,
+          response: (error as AxiosError)?.response?.data,
+          status: (error as AxiosError)?.response?.status,
         });
         // Avoid stale bootstrap failure overriding a successful OAuth callback login.
         if (!hasLoginSucceededRef.current && !authStore.getToken()) {

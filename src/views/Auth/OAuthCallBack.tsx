@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import type { AxiosError } from "axios";
 import { authClient } from "@/utils/http/clients/authClient.client";
 import AuthContext from "@/context/AuthContext";
 import cdacRoundLogo from '@/assets/cdacroundlogo.png';
@@ -52,8 +53,8 @@ const OAuthCallback = () => {
           } catch (error) {
             lastError = error;
             console.warn(`OAuthCallback: refresh attempt ${attempt} failed`, {
-              message: (error as any)?.message,
-              status: (error as any)?.response?.status,
+              message: (error as AxiosError)?.message,
+              status: (error as AxiosError)?.response?.status,
             });
           }
 
@@ -77,9 +78,9 @@ const OAuthCallback = () => {
         }
       } catch (error) {
         console.error("Error completing OAuth login:", {
-          message: (error as any)?.message,
-          response: (error as any)?.response?.data,
-          status: (error as any)?.response?.status,
+          message: (error as AxiosError)?.message,
+          response: (error as AxiosError)?.response?.data,
+          status: (error as AxiosError)?.response?.status,
         });
         navigateToLoginWithNext();
       }
@@ -92,7 +93,7 @@ const OAuthCallback = () => {
     <div className="min-h-screen bg-secondary-background flex items-center justify-center">
       <div className='flex flex-col items-center'>
         {/* <FaSpinner className="animate-spin text-4xl text-[#66B0FF]" /> */}
-        <img src={cdacRoundLogo} className="mr-3 mb-4 size-20 cdacSpinner" />
+        <img src={cdacRoundLogo} className="mr-3 mb-4 size-20 cdacSpinner" alt="Loading spinner" />
         <div className="text-[#000000] text-lg">Logging in...</div>
       </div>
     </div>

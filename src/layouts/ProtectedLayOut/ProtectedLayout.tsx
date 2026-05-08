@@ -38,7 +38,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       <div style={{ minHeight: "62vh" }}>
         <div className='flex flex items-center justify-center w-100% h-110 flex-col gap-4'>
           {/* <FaSpinner className="animate-spin text-4xl text-[#66B0FF]" /> */}
-          <img src={cdacRoundLogo} className="mr-3 mb-4 size-20 cdacSpinner" />
+          <img src={cdacRoundLogo} className="mr-3 mb-4 size-20 cdacSpinner" alt="Loading spinner" />
           <div className="text-[#000000] text-lg">
             Loading...
           </div>

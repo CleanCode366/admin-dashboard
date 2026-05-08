@@ -1,11 +1,11 @@
 // src/CustomTranslate.tsx
 import { useEffect } from "react";
-import { useLanguage } from "../context/LanguageContext";
+import { useLanguage } from "../hooks/useLanguage";
 import { translateDom } from "./domTranslator.ts";
 import { observeDom } from "./observeDom.ts";
 
 const CustomTranslate: React.FC = () => {
-  const { lang } = useLanguage() as { lang: string };
+  const { lang } = useLanguage();
 
   useEffect(() => {
     if (!lang || lang === "en") return;

@@ -5,7 +5,7 @@ import { setPostLoginRedirect } from "@utils/postLoginRedirect";
 // import { jwtDecode } from "jwt-decode";
 // import { redirect } from "react-router-dom";
 
-const redirectURL = window._env_?.VITE_REDIRECT_URL || import.meta.env.VITE_REDIRECT_URL;
+const redirectURL = import.meta.env.VITE_REDIRECT_URL;
 const OAUTH_CALLBACK_GUARD_KEY = "auth:oauth-callback-processed";
 
 const AuthPage: React.FC = () => {
@@ -116,13 +116,13 @@ const AuthPage: React.FC = () => {
 
         <div className="mt-6 text-sm text-gray-500">
           By continuing, you agree to our{" "}
-          <a href="#" className="text-blue-500 underline">
+          <span className="text-blue-500 underline cursor-pointer">
             Terms of Service
-          </a>{" "}
+          </span>{" "}
           and{" "}
-          <a href="#" className="text-blue-500 underline">
+          <span className="text-blue-500 underline cursor-pointer">
             Privacy Policy
-          </a>
+          </span>
         </div>
       </div>
     </div>

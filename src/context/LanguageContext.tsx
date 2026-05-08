@@ -1,26 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+// eslint-disable react-refresh/only-export-components
 
-const LanguageContext = createContext();
+import React, { createContext, useState, useEffect } from 'react';
+import { LanguageContextType } from '../types/language';
 
-export const useLanguage = () => useContext(LanguageContext);
+// eslint-disable-next-line react-refresh/only-export-components
+export const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lang, setLang] = useState(sessionStorage.getItem("lang"));
-
-  // Load saved language on mount
-  useEffect(() => {
-    const savedLang = (sessionStorage.getItem("lang") || "en");
-    if (savedLang) {
-      setLang(savedLang);
-    }
-  }, []);
+  const [lang, setLang] = useState<string>(() => sessionStorage.getItem("lang") || "en");
 
   // Save language on change
   useEffect(() => {
-    sessionStorage.setItem("lang", lang || "en");
+    sessionStorage.setItem("lang", lang);
   }, [lang]);
 
-  const changeLanguage = (code) => {
+  const changeLanguage = (code: string) => {
     setLang(code);
   };
 

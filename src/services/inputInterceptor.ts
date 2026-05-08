@@ -2,10 +2,9 @@
    GLOBAL PHONETIC INTERCEPTOR (SPACE BASED)
 ========================================== */
 
-let isApplying: boolean = false;
+import type { TransliterateResponse } from "../types/transliterate";
 
-let currentLang: string =
-  sessionStorage.getItem("aicode") || "en";
+let isApplying: boolean = false;
 
 /* ==========================================
    FIELD SKIP LOGIC
@@ -106,7 +105,7 @@ function phoneticApiPromise(
       })
         .then((res: Response) => res.json())
 
-        .then((data: any) => {
+        .then((data: TransliterateResponse) => {
 
           const converted: string | undefined =
             data?.result?.[lang];
@@ -238,7 +237,7 @@ export function setPhoneticLanguage(
   lang: string
 ): void {
 
-  currentLang = lang;
+  sessionStorage.setItem("aicode", lang);
 
   sessionStorage.setItem(
     "aicode",

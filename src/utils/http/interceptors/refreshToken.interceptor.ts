@@ -1,6 +1,6 @@
 import { authStore } from "../../../store/authStore";
 import { authClient } from "../clients/authClient.client";
-import { type AxiosInstance } from "axios";
+import { type AxiosInstance, type AxiosError } from "axios";
 
 let isRefreshing = false;
 let pendingQueue: ((token: string) => void)[] = [];
@@ -66,14 +66,14 @@ export const refreshTokenInterceptor = (client: AxiosInstance) => {
           return client(originalRequest);
         } catch (refreshError) {
           console.error("refreshToken.interceptor: refresh failed:", {
-            message: (refreshError as any)?.message,
-            response: (refreshError as any)?.response?.data,
-            status: (refreshError as any)?.response?.status,
+            message: (refreshError as AxiosError)?.message,
+            response: (refreshError as AxiosError)?.response?.data,
+            status: (refreshError as AxiosError)?.response?.status,
           });
           authStore.clear();
           try {
             window.dispatchEvent(new CustomEvent('app:unauthorized'));
-          } catch (e) {
+          } catch {
             window.location.href = "/login";
           }
           return Promise.reject(refreshError);

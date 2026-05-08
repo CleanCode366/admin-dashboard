@@ -41,12 +41,12 @@ const BaseLayout: React.FC = () => {
   // const startRef = useRef(null);
   // const NAV_HEIGHT_OFFSET = 60;
 
-  const scrollToSection = (yScrollPosition: number) => {
-    window.scrollTo({
-      top: yScrollPosition,
-      behavior: 'smooth'
-    });
-  };
+  // const scrollToSection = (yScrollPosition: number) => {
+  //   window.scrollTo({
+  //     top: yScrollPosition,
+  //     behavior: 'smooth'
+  //   });
+  // };
 
   return (
     <div className="flex flex-col background">

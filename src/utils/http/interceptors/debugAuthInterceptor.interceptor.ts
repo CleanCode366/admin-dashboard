@@ -1,4 +1,4 @@
-import type { AxiosInstance } from "axios";
+import type { AxiosInstance, AxiosError } from "axios";
 
 // Debug interceptor to log requests/responses for the auth client
 export const debugAuthInterceptor = (client: AxiosInstance) => {    
@@ -33,10 +33,10 @@ export const debugAuthInterceptor = (client: AxiosInstance) => {
         },
         (err) => {
             console.error("authClient.response error:", {
-                message: (err as any)?.message,
-                response: (err as any)?.response?.data,
-                status: (err as any)?.response?.status,
-                config: (err as any)?.config,
+                message: (err as AxiosError)?.message,
+                response: (err as AxiosError)?.response?.data,
+                status: (err as AxiosError)?.response?.status,
+                config: (err as AxiosError)?.config,
             });
             return Promise.reject(err);
         }

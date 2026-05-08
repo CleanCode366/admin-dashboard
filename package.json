@@ -19,6 +19,7 @@
     "@types/js-cookie": "^3.0.6",
     "@vitejs/plugin-react-swc": "^4.3.0",
     "axios": "^1.13.2",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "generate:api": "openapi-typescript http://localhost:8080/v3/api-docs -o src/api/generated/types.ts",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",

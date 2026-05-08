@@ -15,10 +15,13 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
       jsxA11y.flatConfigs.recommended,
     ],
+
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
 
     languageOptions: {
       ecmaVersion: 2020,
@@ -26,6 +29,8 @@ export default defineConfig([
     },
 
     rules: {
+      ...reactHooks.configs['recommended-latest'].rules,
+      ...reactRefresh.configs.vite.rules,
       'jsx-a11y/alt-text': 'error',
       'jsx-a11y/anchor-is-valid': 'warn',
       'jsx-a11y/no-autofocus': 'warn',
