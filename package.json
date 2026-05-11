@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_bd8d0a3ce41cca0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [
@@ -21,9 +22,6 @@
     ]
   },
   "dependencies": {
-    "@mui/icons-material": "^7.3.0",
-    "@mui/material": "^7.3.0",
-    "@mui/styled-engine-sc": "^7.3.0",
     "@react-oauth/google": "^0.12.2",
     "@storybook/react": "^10.3.6",
     "@tailwindcss/vite": "^4.2.4",
@@ -61,6 +59,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/browser-playwright": "^4.1.5",
     "@vitest/coverage-v8": "^4.1.5",
+    "chromatic": "^16.9.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
