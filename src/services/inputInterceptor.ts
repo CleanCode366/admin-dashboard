@@ -2,72 +2,50 @@
    GLOBAL PHONETIC INTERCEPTOR (SPACE BASED)
 ========================================== */
 
-let isApplying: boolean = false;
+import type { TransliterateResponse } from '../types/transliterate'
 
-let currentLang: string =
-  sessionStorage.getItem("aicode") || "en";
+let isApplying: boolean = false
 
 /* ==========================================
    FIELD SKIP LOGIC
 ========================================== */
 
-function shouldSkipField(
-  el: EventTarget | null
-): boolean {
-
-  if (
-    !(
-      el instanceof HTMLInputElement ||
-      el instanceof HTMLTextAreaElement
-    )
-  ) {
-    return true;
+function shouldSkipField(el: EventTarget | null): boolean {
+  if (!(el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement)) {
+    return true
   }
 
-  if (el.dataset?.phonetic === "off") return true;
+  if (el.dataset?.phonetic === 'off') return true
 
   if (el instanceof HTMLInputElement) {
+    const skipTypes: string[] = ['password', 'email', 'number', 'tel', 'url', 'search']
 
-    const skipTypes: string[] = [
-      "password",
-      "email",
-      "number",
-      "tel",
-      "url",
-      "search",
-    ];
-
-    if (skipTypes.includes(el.type)) return true;
+    if (skipTypes.includes(el.type)) return true
   }
 
-  const name = (el.name || "").toLowerCase();
-  const id = (el.id || "").toLowerCase();
-  const placeholder = (el.placeholder || "").toLowerCase();
+  const name = (el.name || '').toLowerCase()
+  const id = (el.id || '').toLowerCase()
+  const placeholder = (el.placeholder || '').toLowerCase()
 
   if (
-    name.includes("email") ||
-    name.includes("password") ||
-    name.includes("captcha") ||
-    id.includes("email") ||
-    id.includes("password") ||
-    id.includes("captcha") ||
-    placeholder.includes("email") ||
-    placeholder.includes("password") ||
-    placeholder.includes("captcha")
+    name.includes('email') ||
+    name.includes('password') ||
+    name.includes('captcha') ||
+    id.includes('email') ||
+    id.includes('password') ||
+    id.includes('captcha') ||
+    placeholder.includes('email') ||
+    placeholder.includes('password') ||
+    placeholder.includes('captcha')
   ) {
-    return true;
+    return true
   }
 
-  if (
-    el.closest("form")
-      ?.id
-      ?.toLowerCase()
-      .includes("login")
-  ) {
-    return true;
+  if (el.closest('form')?.id?.toLowerCase().includes('login')) {
+    return true
   }
 
-  return false;
+  return false
 }
 
 /* ==========================================
@@ -76,25 +54,21 @@ function shouldSkipField(
 
 function phoneticApiPromise(
   value: string,
-  lang: string = sessionStorage.getItem("aicode") || "en"
+  lang: string = sessionStorage.getItem('aicode') || 'en'
 ): Promise<string> {
-
   return new Promise((resolve) => {
-
     if (!value || !value.trim()) {
-      resolve(value);
-      return;
+      resolve(value)
+      return
     }
 
-    if (lang !== "en") {
-
-      fetch("/transliterate/sentence", {
-
-        method: "POST",
+    if (lang !== 'en') {
+      fetch('/transliterate/sentence', {
+        method: 'POST',
 
         headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
+          'Content-Type': 'application/json',
+          accept: 'application/json',
         },
 
         body: JSON.stringify({
@@ -102,28 +76,20 @@ function phoneticApiPromise(
           target_lang: lang,
           beam_width: 4,
         }),
-
       })
         .then((res: Response) => res.json())
 
-        .then((data: any) => {
+        .then((data: TransliterateResponse) => {
+          const converted: string | undefined = data?.result?.[lang]
 
-          const converted: string | undefined =
-            data?.result?.[lang];
-
-          resolve(converted || value);
-
+          resolve(converted || value)
         })
 
-        .catch(() => resolve(value));
-
+        .catch(() => resolve(value))
     } else {
-
-      resolve(value);
-
+      resolve(value)
     }
-
-  });
+  })
 }
 
 /* ==========================================
@@ -131,86 +97,63 @@ function phoneticApiPromise(
 ========================================== */
 
 function interceptSpaceKey(): void {
-
   document.addEventListener(
-    "keydown",
+    'keydown',
 
     async (event: KeyboardEvent) => {
+      if (event.key !== ' ') return
 
-      if (event.key !== " ") return;
+      const el = event.target as HTMLInputElement | HTMLTextAreaElement | null
 
-      const el =
-        event.target as
-          | HTMLInputElement
-          | HTMLTextAreaElement
-          | null;
+      if (shouldSkipField(el)) return
 
-      if (shouldSkipField(el)) return;
+      if (!el) return
 
-      if (!el) return;
+      if (isApplying) return
 
-      if (isApplying) return;
+      const cursorPos: number = el.selectionStart ?? 0
 
-      const cursorPos: number =
-        el.selectionStart ?? 0;
+      const text: string = el.value
 
-      const text: string = el.value;
+      const textBeforeCursor = text.substring(0, cursorPos)
 
-      const textBeforeCursor =
-        text.substring(0, cursorPos);
+      const textAfterCursor = text.substring(cursorPos)
 
-      const textAfterCursor =
-        text.substring(cursorPos);
+      const match = textBeforeCursor.match(/(\S+)$/)
 
-      const match =
-        textBeforeCursor.match(/(\S+)$/);
+      if (!match) return
 
-      if (!match) return;
+      const lastWord: string = match[0]
 
-      const lastWord: string = match[0];
+      event.preventDefault()
 
-      event.preventDefault();
+      isApplying = true
 
-      isApplying = true;
-
-      const translated: string =
-        await phoneticApiPromise(lastWord);
+      const translated: string = await phoneticApiPromise(lastWord)
 
       const newText: string =
-        textBeforeCursor.slice(
-          0,
-          textBeforeCursor.length -
-            lastWord.length
-        ) +
+        textBeforeCursor.slice(0, textBeforeCursor.length - lastWord.length) +
         translated +
-        " " +
-        textAfterCursor;
+        ' ' +
+        textAfterCursor
 
-      el.value = newText;
+      el.value = newText
 
-      const newCursorPos: number =
-        textBeforeCursor.length -
-        lastWord.length +
-        translated.length +
-        1;
+      const newCursorPos: number = textBeforeCursor.length - lastWord.length + translated.length + 1
 
-      el.setSelectionRange(
-        newCursorPos,
-        newCursorPos
-      );
+      el.setSelectionRange(newCursorPos, newCursorPos)
 
       el.dispatchEvent(
-        new Event("input", {
+        new Event('input', {
           bubbles: true,
         })
-      );
+      )
 
-      isApplying = false;
-
+      isApplying = false
     },
 
     true
-  );
+  )
 }
 
 /* ==========================================
@@ -218,30 +161,19 @@ function interceptSpaceKey(): void {
 ========================================== */
 
 export function enablePhonetic(): void {
-
-  if (
-    window.location.pathname
-      .toLowerCase()
-      .includes("login")
-  ) {
-    return;
+  if (window.location.pathname.toLowerCase().includes('login')) {
+    return
   }
 
-  interceptSpaceKey();
+  interceptSpaceKey()
 }
 
 /* ==========================================
    LANGUAGE SWITCH
 ========================================== */
 
-export function setPhoneticLanguage(
-  lang: string
-): void {
+export function setPhoneticLanguage(lang: string): void {
+  sessionStorage.setItem('aicode', lang)
 
-  currentLang = lang;
-
-  sessionStorage.setItem(
-    "aicode",
-    lang
-  );
+  sessionStorage.setItem('aicode', lang)
 }

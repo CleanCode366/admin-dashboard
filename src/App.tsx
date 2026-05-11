@@ -1,8 +1,8 @@
 // import { RouterProvider } from 'react-router-dom';
 // import router from './routes';
 
-import { RouterProvider } from "react-router-dom";
-import router from "./routes";
+import { RouterProvider } from 'react-router-dom'
+import router from './routes'
 // import styles from "./App.module.css";
 import { AuthProvider } from "./context/AuthContext";
 import TestCard from "./TestCard";
@@ -21,4 +21,4 @@ function App() {
     </AuthProvider>
   )
 }
-export default App;
+export default App

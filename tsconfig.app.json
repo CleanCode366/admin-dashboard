@@ -12,6 +12,7 @@
       "@layouts/*": ["./src/layouts/*"],
       "@routes/*": ["./src/routes/*"],
       "@services/*": ["./src/services/*"],
+      "@shared/*": ["./src/shared"],
       "@store/*": ["./src/store/*"],
       "@utils/*": ["./src/utils/*"],
       "@views/*": ["./src/views/*"]

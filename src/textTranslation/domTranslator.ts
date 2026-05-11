@@ -1,75 +1,66 @@
 // src/domTranslator.ts
 
-import { translateText } from "./translatorApi.ts";
+import { translateText } from './translatorApi.ts'
 
 interface TranslationItem {
-  target: string;
+  target: string
 }
 
-const translationCache: Map<string, string> = new Map();
+const translationCache: Map<string, string> = new Map()
 
 export async function translateDom(lang: string): Promise<void> {
-  if (!lang || lang === "en") return;
+  if (!lang || lang === 'en') return
 
-  const walker: TreeWalker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT,
-    null
-  );
+  const walker: TreeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null)
 
-  const nodes: Text[] = [];
-  const texts: string[] = [];
+  const nodes: Text[] = []
+  const texts: string[] = []
 
-  let node: Node | null;
+  let node: Node | null
 
   while ((node = walker.nextNode())) {
-    const textNode = node as Text;
+    const textNode = node as Text
 
     if (
       !textNode.nodeValue?.trim() ||
-      textNode.parentElement?.closest(
-        "input, textarea, script, style, [contenteditable='true']"
-      )
+      textNode.parentElement?.closest("input, textarea, script, style, [contenteditable='true']")
     ) {
-      continue;
+      continue
     }
 
-    nodes.push(textNode);
-    texts.push(textNode.nodeValue);
+    nodes.push(textNode)
+    texts.push(textNode.nodeValue)
   }
 
-  if (!texts.length) return;
+  if (!texts.length) return
 
   // Only send uncached texts
-  const textsToTranslate: string[] = texts.filter(
-    (t) => !translationCache.has(`${lang}::${t}`)
-  );
+  const textsToTranslate: string[] = texts.filter((t) => !translationCache.has(`${lang}::${t}`))
 
   if (textsToTranslate.length) {
-    const uniqueTexts: string[] = [...new Set(textsToTranslate)];
+    const uniqueTexts: string[] = [...new Set(textsToTranslate)]
 
-    const response: TranslationItem[] | null =
-      await translateText(uniqueTexts, lang);
+    const response: TranslationItem[] | null = await translateText(uniqueTexts, lang)
 
     response?.forEach((item, index) => {
-      const original = uniqueTexts[index];
+      const original = uniqueTexts[index]
 
       if (original) {
-        translationCache.set(`${lang}::${original}`, item.target);
+        translationCache.set(`${lang}::${original}`, item.target)
       }
-    });
+    })
   }
 
   // Apply translations from cache
   nodes.forEach((n, i) => {
-    const original = texts[i];
+    const original = texts[i]
 
-    if (!original) return;
+    if (!original) return
 
-    const translated = translationCache.get(`${lang}::${original}`);
+    const translated = translationCache.get(`${lang}::${original}`)
 
     if (translated) {
-      n.nodeValue = translated;
+      n.nodeValue = translated
     }
-  });
+  })
 }

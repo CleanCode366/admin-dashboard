@@ -1,32 +1,33 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { setPostLoginRedirect } from "@utils/postLoginRedirect";
+import React from 'react'
+import { useLocation } from 'react-router-dom'
+import { setPostLoginRedirect } from '@utils/postLoginRedirect'
 // import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 // import { jwtDecode } from "jwt-decode";
 // import { redirect } from "react-router-dom";
 
-const redirectURL = window._env_?.VITE_REDIRECT_URL || import.meta.env.VITE_REDIRECT_URL;
-const OAUTH_CALLBACK_GUARD_KEY = "auth:oauth-callback-processed";
+const redirectURL = import.meta.env.VITE_REDIRECT_URL
+const OAUTH_CALLBACK_GUARD_KEY = 'auth:oauth-callback-processed'
 
 const AuthPage: React.FC = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   const getSafeRedirectPath = () => {
-    const next = new URLSearchParams(location.search).get("next") || "";
-    if (next.startsWith("/") && !next.startsWith("//")) {
-      return next;
+    const next = new URLSearchParams(location.search).get('next') || ''
+    if (next.startsWith('/') && !next.startsWith('//')) {
+      return next
     }
 
-    const from = location.state && typeof (location.state as { from?: unknown }).from === "string"
-      ? (location.state as { from: string }).from
-      : "";
+    const from =
+      location.state && typeof (location.state as { from?: unknown }).from === 'string'
+        ? (location.state as { from: string }).from
+        : ''
 
-    if (from.startsWith("/") && !from.startsWith("//")) {
-      return from;
+    if (from.startsWith('/') && !from.startsWith('//')) {
+      return from
     }
 
-    return null;
-  };
+    return null
+  }
 
   // const handleLoginSuccess = (credentialResponse: any) => {
   //   if (credentialResponse.credential) {
@@ -40,26 +41,22 @@ const AuthPage: React.FC = () => {
   //   console.error("Login Failed");
   // };
   const handleGoogleLogin = () => {
-    const redirectPath = getSafeRedirectPath();
+    const redirectPath = getSafeRedirectPath()
 
     if (redirectPath) {
-      setPostLoginRedirect(redirectPath);
+      setPostLoginRedirect(redirectPath)
     }
 
     // Reset callback guard before initiating a new OAuth round-trip.
-    sessionStorage.removeItem(OAUTH_CALLBACK_GUARD_KEY);
-    window.location.href = redirectURL;
+    sessionStorage.removeItem(OAUTH_CALLBACK_GUARD_KEY)
+    window.location.href = redirectURL
   }
 
   return (
-    <div className="flex items-center justify-center" style={{ minHeight: "62vh" }}>
-      <div className="bg-white shadow-lg rounded-2xl p-10 w-full max-w-md text-center">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
-          Welcome Back 👋
-        </h2>
-        <p className="text-gray-600 mb-6">
-          Sign in or create an account with Google
-        </p>
+    <div className="flex items-center justify-center" style={{ minHeight: '62vh' }}>
+      <div className="w-full max-w-md rounded-2xl bg-white p-10 text-center shadow-lg">
+        <h2 className="mb-6 text-2xl font-bold text-gray-800">Welcome Back 👋</h2>
+        <p className="mb-6 text-gray-600">Sign in or create an account with Google</p>
         {/* <GoogleOAuthProvider clientId="962264895991-93et5a8stepe4osg77oj9gh0am4cc897.apps.googleusercontent.com">
           <GoogleLogin
             onSuccess={handleLoginSuccess}
@@ -72,21 +69,10 @@ const AuthPage: React.FC = () => {
 
         <button
           onClick={handleGoogleLogin}
-
-
-          className={`
-            w-full flex items-center justify-center gap-3 px-6 py-3 
-            border border-gray-300 rounded-full text-gray-700 font-medium
-            hover:bg-gray-50 hover:shadow-md transition-all duration-200
-            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-            cursor-pointer
-          `}
+          className={`flex w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-gray-300 px-6 py-3 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none`}
         >
           {/* Google Icon */}
-          <svg
-            className="w-5 h-5"
-            viewBox="0 0 24 24"
-          >
+          <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -105,28 +91,22 @@ const AuthPage: React.FC = () => {
             />
           </svg>
 
-          {(
+          {
             <div className="flex items-center gap-2">
               {/* <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-gray-600"></div> */}
               <span>Continue With Google</span>
             </div>
-          )}
-
+          }
         </button>
 
         <div className="mt-6 text-sm text-gray-500">
-          By continuing, you agree to our{" "}
-          <a href="#" className="text-blue-500 underline">
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a href="#" className="text-blue-500 underline">
-            Privacy Policy
-          </a>
+          By continuing, you agree to our{' '}
+          <span className="cursor-pointer text-blue-500 underline">Terms of Service</span> and{' '}
+          <span className="cursor-pointer text-blue-500 underline">Privacy Policy</span>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AuthPage;
+export default AuthPage

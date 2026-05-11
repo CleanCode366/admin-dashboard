@@ -14,9 +14,8 @@ const BaseLayout: React.FC = () => {
           </Suspense>
         </div>
       </div>
-
     </div>
-  );
-};
+  )
+}
 
 export default BaseLayout;

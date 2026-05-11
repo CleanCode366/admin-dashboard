@@ -1,6 +1,6 @@
-import axios, { type AxiosInstance } from "axios";
+import axios, { type AxiosInstance } from 'axios'
 
-type InterceptorFn = (client: AxiosInstance) => void;
+type InterceptorFn = (client: AxiosInstance) => void
 
 export function createAxiosClient(
   baseURL: string,
@@ -12,9 +12,9 @@ export function createAxiosClient(
     baseURL,
     timeout,
     withCredentials,
-  });
+  })
 
-  interceptors.forEach((attach) => attach(client));
+  interceptors.forEach((attach) => attach(client))
 
-  return client;
+  return client
 }

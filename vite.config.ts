@@ -1,9 +1,16 @@
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
-import { defineConfig } from 'vite';
-import removeConsole from "vite-plugin-remove-console";
+/// <reference types="vitest/config" />
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react-swc'
+import path from 'path'
+import { defineConfig } from 'vite'
+import removeConsole from 'vite-plugin-remove-console'
+import { fileURLToPath } from 'node:url'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { playwright } from '@vitest/browser-playwright'
+const dirname =
+  typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
 
+// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   base: '/',
   preview: {
@@ -15,7 +22,6 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
   },
-
   plugins: [
     react({
       plugins: [
@@ -25,26 +31,23 @@ export default defineConfig({
             displayName: true,
             pure: true,
             ssr: false,
-          }
-        ]
-      ]
+          },
+        ],
+      ],
     }),
     removeConsole({
-      includes: ["log", "warn", "error", "debug"],
+      includes: ['log', 'warn', 'error', 'debug'],
     }),
     tailwindcss(),
   ],
-
   css: {
     modules: {
       localsConvention: 'camelCase',
-    }
+    },
   },
-
   resolve: {
     alias: {
       '@mui/styled-engine': '@mui/styled-engine-sc',
-
       '@': path.resolve(__dirname, './src'),
       '@api': path.resolve(__dirname, './src/api'),
       '@assets': path.resolve(__dirname, './src/assets'),
@@ -56,9 +59,37 @@ export default defineConfig({
       '@layouts': path.resolve(__dirname, './src/layouts'),
       '@routes': path.resolve(__dirname, './src/routes'),
       '@services': path.resolve(__dirname, './src/services'),
+      '@shared': path.resolve(__dirname, './src/shared'),
       '@store': path.resolve(__dirname, './src/store'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@views': path.resolve(__dirname, './src/views'),
     },
   },
-});
+  test: {
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          // The plugin will run tests for the stories defined in your Storybook config
+          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+          storybookTest({
+            configDir: path.join(dirname, '.storybook'),
+          }),
+        ],
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [
+              {
+                browser: 'chromium',
+              },
+            ],
+          },
+        },
+      },
+    ],
+  },
+})

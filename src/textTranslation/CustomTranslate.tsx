@@ -1,25 +1,25 @@
 // src/CustomTranslate.tsx
-import { useEffect } from "react";
-import { useLanguage } from "../context/LanguageContext";
-import { translateDom } from "./domTranslator.ts";
-import { observeDom } from "./observeDom.ts";
+import { useEffect } from 'react'
+import { useLanguage } from '../hooks/useLanguage'
+import { translateDom } from './domTranslator.ts'
+import { observeDom } from './observeDom.ts'
 
 const CustomTranslate: React.FC = () => {
-  const { lang } = useLanguage() as { lang: string };
+  const { lang } = useLanguage()
 
   useEffect(() => {
-    if (!lang || lang === "en") return;
+    if (!lang || lang === 'en') return
 
     // translate existing DOM
-    translateDom(lang);
+    translateDom(lang)
 
     // observe future DOM changes (React re-renders)
-    const observer: MutationObserver = observeDom(lang);
+    const observer: MutationObserver = observeDom(lang)
 
-    return () => observer.disconnect();
-  }, [lang]);
+    return () => observer.disconnect()
+  }, [lang])
 
-  return null;
-};
+  return null
+}
 
-export default CustomTranslate;
+export default CustomTranslate
