@@ -4,6 +4,7 @@ import App from './App.tsx'
 import { StyleSheetManager } from 'styled-components'
 import './index.css'
 import { enablePhonetic } from '@services/inputInterceptor.ts'
+import { ThemeProvider } from '@/shared/theme/ThemeProvider.tsx'
 
 enablePhonetic()
 /**
@@ -44,7 +45,9 @@ if (import.meta.env.PROD && !nonce) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <StyleSheetManager disableCSSOMInjection>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </StyleSheetManager>
   </StrictMode>
 )
