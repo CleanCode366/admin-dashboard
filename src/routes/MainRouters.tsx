@@ -10,7 +10,8 @@ import NotFound from '@views/NotFound/NotFound'
 // import Profile from "@views/Profile/Profile";
 // import Profile1 from "@views/Profile/Profile1";
 // import Setting from "@views/Setting/Setting";
-import { Navigate } from 'react-router-dom'
+// import { Navigate } from 'react-router-dom'
+import LoginPage from '@/views/LoginPage'
 
 const MainRoutes = {
   path: '/',
@@ -18,7 +19,7 @@ const MainRoutes = {
   children: [
     {
       index: true,
-      element: <Navigate to="oauth/callback" replace />,
+      element: <LoginPage />,
     },
     {
       path: 'oauth/callback',
