@@ -45,6 +45,24 @@
   /* Shadow */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /* Status Backgrounds */
+  --color-bg-danger: #fde8e8;
+  --color-bg-warning: #fef3c7;
+  --color-bg-success: #e6f4ea;
+  --color-bg-info: #e8f1fb;
+
+  /* Status Text */
+  --color-text-danger: #b91c1c;
+  --color-text-warning: #92400e;
+  --color-text-success: #166534;
+  --color-text-info: #1e3a8a;
+
+  /* Status Borders */
+  --color-border-danger: #f5c2c2;
+  --color-border-warning: #fde68a;
+  --color-border-success: #bbf7d0;
+  --color-border-info: #bfdbfe;
 }
 
 /* 2. Tailwind v4 bridge (CRITICAL) */
@@ -64,36 +82,34 @@
   --color-border-secondary: var(--color-border-secondary);
   --color-border-tertiary: var(--color-border-tertiary);
 
-  /* Danger */
+  /* Status Backgrounds */
   --color-bg-danger: var(--color-bg-danger);
-  --color-text-danger: var(--color-text-danger);
-  --color-border-danger: var(--color-border-danger);
-
-  /* Warning */
   --color-bg-warning: var(--color-bg-warning);
-  --color-text-warning: var(--color-text-warning);
-  --color-border-warning: var(--color-border-warning);
-
-  /* Success */
   --color-bg-success: var(--color-bg-success);
-  --color-text-success: var(--color-text-success);
-  --color-border-success: var(--color-border-success);
-
-  /* Info */
   --color-bg-info: var(--color-bg-info);
+
+  /* Status Text */
+  --color-text-danger: var(--color-text-danger);
+  --color-text-warning: var(--color-text-warning);
+  --color-text-success: var(--color-text-success);
   --color-text-info: var(--color-text-info);
+
+  /* Status Borders */
+  --color-border-danger: var(--color-border-danger);
+  --color-border-warning: var(--color-border-warning);
+  --color-border-success: var(--color-border-success);
   --color-border-info: var(--color-border-info);
 }
 
 /* Disable transitions on first load (prevents flash) */
-html[data-theme-loaded="false"],
-html[data-theme-loaded="false"] * {
+html[data-theme-loaded='false'],
+html[data-theme-loaded='false'] * {
   transition: none !important;
 }
 
 /* Enable smooth transitions AFTER theme is applied */
-html[data-theme-loaded="true"],
-html[data-theme-loaded="true"] * {
+html[data-theme-loaded='true'],
+html[data-theme-loaded='true'] * {
   transition:
     background-color 0.25s ease,
     color 0.25s ease,
