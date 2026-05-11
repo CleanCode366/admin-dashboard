@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
     return (
-        <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
-            <h1 className="text-4xl font-bold text-black mb-2">404</h1>
-            <p className="text-gray-600 mb-6">
+        <div className="fixed inset-0 flex flex-col items-center justify-center bg-bg-primary">
+            <h1 className="text-4xl font-bold text-primary mb-2">404</h1>
+            <p className="mb-6 text-primary">
                 The page you are looking for does not exist or is unavailable.
             </p>
 
             <Link
                 to="/home"
-                className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+                className="px-6 py-2 bg-bg-tertiary text-text-primary rounded-lg border border-border-secondary hover:bg-bg-primary transition"
             >
                 Go to Home
             </Link>

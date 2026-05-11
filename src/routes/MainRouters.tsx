@@ -13,6 +13,7 @@ import BaseLayout from "@layouts/MainLayout/BaseLayout";
 import { Navigate } from "react-router-dom";
 import TestCard from "@/TestCard";
 import LoginCard from "@/LoginCard";
+import NotFound from "@/views/NotFound/NotFound";
 
 const MainRoutes = {
   path: '/',
@@ -21,8 +22,12 @@ const MainRoutes = {
     {
       index: true,
       element: (
-        <LoginCard />
+        <NotFound />
       )
+    },
+    {
+      path: '/login',
+      element: <LoginCard />
     },
     {
       path: '*',

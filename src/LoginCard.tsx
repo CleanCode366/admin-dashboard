@@ -1,125 +1,83 @@
-import React, { useState } from 'react';
 import ThemeToggleSwitch from './ThemeToggleSwitch';
-import { useTheme } from './shared/theme';
 
 function LoginCard() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const { themeName } = useTheme();
 
-    const [errors, setErrors] = useState<{ username?: string; password?: string }>({});
-    const validate = () => {
-        const newErrors: typeof errors = {};
-
-        // Username validation
-        if (!username.trim()) {
-            newErrors.username = 'Username is required';
-        } else if (username.length < 3) {
-            newErrors.username = 'Username must be at least 3 characters';
-        }
-
-        // Password validation
-        if (!password) {
-            newErrors.password = 'Password is required';
-        } else if (password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+    const handleGoogleLogin = () => {
+        // Replace with your actual backend OAuth endpoint
+        window.location.href = 'http://localhost:8080/oauth2/authorization/google';
     };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (validate()) {
-            console.log('Login success (mock)');
-        }
-    };
-
-    const inputBase =
-        'w-full px-3 py-2 rounded-md border outline-none transition';
-
-    const inputNormal =
-        'bg-bg-secondary text-text-primary border-border-secondary';
-
-    const inputError =
-        `${themeName === 'dark'
-            ? 'bg-red-900'
-            : 'bg-red-200'
-        } text-text-primary border-danger`;
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-bg-primary">
+        <div className="fixed inset-0 flex items-center justify-center bg-bg-primary">
+
             <div className="flex gap-2 absolute top-4 right-10">
                 <ThemeToggleSwitch />
             </div>
 
-            <div className="w-full max-w-sm bg-bg-secondary border border-border-primary rounded-lg shadow-md p-6 space-y-4">
+            <div className="w-full max-w-sm bg-bg-secondary border border-border-primary rounded-lg shadow-md p-6 space-y-6">
 
-                <h2 className="text-lg font-semibold text-text-primary">
-                    Login
-                </h2>
+                {/* Heading */}
+                <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold text-text-primary">
+                        Welcome
+                    </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                    <p className="text-sm text-text-secondary">
+                        Sign in using your Google account
+                    </p>
+                </div>
 
-                    {/* Username */}
-                    <div>
-                        <label htmlFor="username" className="cursor-pointer block text-sm text-text-secondary mb-1">
-                            Username
-                        </label>
-                        <input
-                            id="username"
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className={`${inputBase} ${errors.username ? inputError : inputNormal
-                                }`}
-                        />
-                        {errors.username && (
-                            <p className="mt-1 text-sm text-danger font-weight-900">
-                                {errors.username}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Password */}
-                    <div>
-                        <label htmlFor="password" className="cursor-pointer block text-sm text-text-secondary mb-1">
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className={`${inputBase} ${errors.password ? inputError : inputNormal
-                                }`}
-                        />
-                        {errors.password && (
-                            <p className="mt-1 text-sm text-danger">
-                                {errors.password}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Forgot password */}
-                    <div className="text-right">
-                        <a
-                            href="#"
-                            className="text-sm text-text-secondary hover:underline"
-                        >
-                            Forgot password?
-                        </a>
-                    </div>
-
-                    {/* Submit */}
-                    <button
-                        type="submit"
-                        className="cursor-pointer w-full py-2 rounded-md bg-bg-tertiary text-text-primary border border-border-secondary hover:bg-bg-primary transition"
+                {/* Google OAuth Button */}
+                <button
+                    onClick={handleGoogleLogin}
+                    className="
+                        cursor-pointer
+                        w-full
+                        flex
+                        items-center
+                        justify-center
+                        gap-3
+                        py-3
+                        rounded-md
+                        bg-bg-tertiary
+                        text-text-primary
+                        border
+                        border-border-secondary
+                        hover:bg-bg-primary
+                        transition
+                    "
+                >
+                    {/* Google Icon */}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 48 48"
+                        className="w-5 h-5"
                     >
-                        Sign In
-                    </button>
-                </form>
+                        <path
+                            fill="#FFC107"
+                            d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"
+                        />
+                        <path
+                            fill="#FF3D00"
+                            d="M6.3 14.7l6.6 4.8C14.7 15.1 18.9 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"
+                        />
+                        <path
+                            fill="#4CAF50"
+                            d="M24 44c5.2 0 10-2 13.5-5.3l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.5 16.2 44 24 44z"
+                        />
+                        <path
+                            fill="#1976D2"
+                            d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.1-3.3 5.5-6.2 7.1l6.2 5.2C39.1 36.7 44 31 44 24c0-1.3-.1-2.3-.4-3.5z"
+                        />
+                    </svg>
+
+                    Continue with Google
+                </button>
+
+                {/* Footer */}
+                <p className="text-xs text-center text-text-tertiary">
+                    By continuing, you agree to the platform policies.
+                </p>
             </div>
         </div>
     );
