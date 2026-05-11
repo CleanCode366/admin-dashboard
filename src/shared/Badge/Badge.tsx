@@ -1,38 +1,88 @@
-import { cva, type VariantProps } from 'class-variance-authority'
+import React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 const badge = cva(
-  // base styles applied to every variant
-  'inline-flex items-center font-medium rounded-full border',
+  'inline-flex items-center gap-1 font-medium rounded-full border transition-opacity',
   {
     variants: {
       variant: {
-        pending: 'bg-yellow-50 text-yellow-700 border-yellow-200',
-        escalated: 'bg-red-50 text-red-700 border-red-200',
-        resolved: 'bg-green-50 text-green-700 border-green-200',
-        dismissed: 'bg-gray-50 text-gray-500 border-gray-200',
-        info: 'bg-blue-50 text-blue-700 border-blue-200',
+        default:
+          'bg-bg-secondary text-text-secondary border-border-secondary',
+
+        warning:
+          'bg-bg-warning text-text-warning border-border-warning',
+
+        danger:
+          'bg-bg-danger text-text-danger border-border-danger',
+
+        success:
+          'bg-bg-success text-text-success border-border-success',
+
+        pending:
+          'bg-bg-warning text-text-warning border-border-warning',
+
+        escalated:
+          'bg-bg-danger text-text-danger border-border-danger',
+
+        resolved:
+          'bg-bg-success text-text-success border-border-success',
+
+        dismissed:
+          'bg-bg-secondary text-text-tertiary border-border-secondary',
+
+        info:
+          'bg-bg-info text-text-info border-border-info',
       },
+
       size: {
         sm: 'px-2 py-0.5 text-xs',
         md: 'px-3 py-1 text-sm',
       },
     },
+
     defaultVariants: {
-      variant: 'info',
+      variant: 'default',
       size: 'md',
     },
   }
-)
+);
 
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badge> {
-  label: string
+  extends React.HTMLAttributes<HTMLSpanElement>,
+  VariantProps<typeof badge> {
+  children?: React.ReactNode;
+  dot?: boolean;
 }
 
-export function Badge({ label, variant, size, className, ...props }: BadgeProps) {
+export function Badge({
+  children,
+  variant,
+  size,
+  dot = false,
+  className,
+  ...props
+}: BadgeProps) {
+  const dotSize =
+    size === 'sm'
+      ? 'w-1.5 h-1.5'
+      : 'w-2 h-2';
+
   return (
-    <span className={badge({ variant, size, className })} {...props}>
-      {label}
+    <span
+      className={badge({
+        variant,
+        size,
+        className,
+      })}
+      {...props}
+    >
+      {dot ? (
+        <span
+          className={`${dotSize} rounded-full bg-current`}
+        />
+      ) : (
+        children
+      )}
     </span>
-  )
+  );
 }
