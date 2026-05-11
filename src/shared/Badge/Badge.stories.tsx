@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Badge } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Badge } from '.'
 
 const meta = {
   title: 'Shared/Primitives/Badge',
@@ -31,74 +31,74 @@ const meta = {
       control: 'boolean',
     },
   },
-} satisfies Meta<typeof Badge>;
+} satisfies Meta<typeof Badge>
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
     children: 'Default',
     variant: 'default',
   },
-};
+}
 
 export const Pending: Story = {
   args: {
     children: 'Pending',
     variant: 'pending',
   },
-};
+}
 
 export const Escalated: Story = {
   args: {
     children: 'Escalated',
     variant: 'escalated',
   },
-};
+}
 
 export const Resolved: Story = {
   args: {
     children: 'Resolved',
     variant: 'resolved',
   },
-};
+}
 
 export const Dismissed: Story = {
   args: {
     children: 'Dismissed',
     variant: 'dismissed',
   },
-};
+}
 
 export const Info: Story = {
   args: {
     children: 'Info',
     variant: 'info',
   },
-};
+}
 
 export const Success: Story = {
   args: {
     children: 'Success',
     variant: 'success',
   },
-};
+}
 
 export const Warning: Story = {
   args: {
     children: 'Warning',
     variant: 'warning',
   },
-};
+}
 
 export const Danger: Story = {
   args: {
     children: 'Danger',
     variant: 'danger',
   },
-};
+}
 
 export const Small: Story = {
   args: {
@@ -106,7 +106,7 @@ export const Small: Story = {
     variant: 'pending',
     size: 'sm',
   },
-};
+}
 
 export const Medium: Story = {
   args: {
@@ -114,7 +114,7 @@ export const Medium: Story = {
     variant: 'pending',
     size: 'md',
   },
-};
+}
 
 export const Dot: Story = {
   args: {
@@ -122,4 +122,4 @@ export const Dot: Story = {
     dot: true,
     size: 'md',
   },
-};
+}
