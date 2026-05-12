@@ -17,11 +17,7 @@ const meta = {
 
   tags: ['autodocs'],
 
-  argTypes: {
-    onClick: {
-      action: 'clicked',
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof SidebarNavItem>
 
 export default meta
@@ -30,14 +26,15 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
+    link: '/reports',
     label: 'Reports',
     icon: <QueueListIcon className="h-5 w-5" />,
-    isActive: true,
   },
 }
 
 export const Active: Story = {
   args: {
+    link: '/reports',
     label: 'Reports',
     icon: <QueueListIcon className="h-5 w-5" />,
     isActive: true,
@@ -46,6 +43,7 @@ export const Active: Story = {
 
 export const WithDangerBadge: Story = {
   args: {
+    link: '/escalated',
     label: 'Escalated',
     icon: <ExclamationTriangleIcon className="h-5 w-5" />,
 
@@ -57,6 +55,7 @@ export const WithDangerBadge: Story = {
 
 export const WithInfoBadge: Story = {
   args: {
+    link: '/resolved',
     label: 'Resolved',
     icon: <CheckCircleIcon className="h-5 w-5" />,
 

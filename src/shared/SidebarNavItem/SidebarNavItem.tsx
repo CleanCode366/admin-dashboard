@@ -1,6 +1,7 @@
 import React from 'react'
 import { cva } from 'class-variance-authority'
 import { Badge } from '../Badge'
+// import { NavLink } from 'react-router-dom'
 
 const sidebarNavItem = cva(
   [
@@ -39,6 +40,8 @@ const sidebarNavItem = cva(
 )
 
 export interface SidebarNavItemProps {
+  link?: string
+
   label: string
 
   icon: React.ReactNode
@@ -49,24 +52,21 @@ export interface SidebarNavItemProps {
 
   badgeVariant?: 'danger' | 'info'
 
-  onClick?: () => void
-
   className?: string
 }
 
 export function SidebarNavItem({
+  // link,
   label,
   icon,
   isActive = false,
   badge,
   badgeVariant = 'info',
-  onClick,
   className,
 }: SidebarNavItemProps) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <div
+      // type="button"
       className={sidebarNavItem({
         isActive,
         className,
@@ -85,7 +85,7 @@ export function SidebarNavItem({
           {badge}
         </Badge>
       )}
-    </button>
+    </div>
   )
 }
 
