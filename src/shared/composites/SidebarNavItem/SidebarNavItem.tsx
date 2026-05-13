@@ -1,6 +1,6 @@
 import React from 'react'
 import { cva } from 'class-variance-authority'
-import { Badge } from '../Badge'
+import { Badge } from '../../primitives/Badge'
 // import { NavLink } from 'react-router-dom'
 
 const sidebarNavItem = cva(
