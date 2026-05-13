@@ -8,6 +8,8 @@ export interface SwitchProps {
   disabled?: boolean
 
   className?: string
+
+  onClick?: () => void
 }
 
 const switchTrack = cva(
