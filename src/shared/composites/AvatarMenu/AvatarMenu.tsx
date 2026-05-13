@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-
 import { Avatar } from '@/shared/primitives/Avatar'
 import { Switch } from '@/shared/primitives/Switch/Switch'
 import {
@@ -15,6 +14,8 @@ import {
 } from '@heroicons/react/24/outline'
 import { useTheme } from '@/shared/theme'
 import { Button } from '@/shared/primitives/Button'
+import { useToast } from '@/hooks/useToast'
+
 export interface AvatarMenuProps {
   name: string
 
@@ -41,6 +42,7 @@ export function AvatarMenu({
   const [open, setOpen] = useState(false)
   const { themeName, setTheme } = useTheme()
   const ref = useRef<HTMLDivElement>(null)
+  const toast = useToast()
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -114,7 +116,11 @@ export function AvatarMenu({
                 className="ms-6"
                 checked={themeName === 'dark'}
                 onChange={(checked: boolean) => {
-                  return setTheme(checked ? 'dark' : 'light')
+                  const newTheme = checked ? 'dark' : 'light'
+
+                  setTheme(newTheme)
+
+                  toast.info(`Theme changed to ${newTheme}`)
                 }}
               />
             }
@@ -141,7 +147,6 @@ export function AvatarMenu({
             variant={'danger'}
             leftIcon={<ArrowRightStartOnRectangleIcon className="h-5 w-5" />}
           >
-            {/* <div><ArrowRightStartOnRectangleIcon className='w-5 h-5' /></div> */}
             <div>Logout</div>
           </Button>
         </div>

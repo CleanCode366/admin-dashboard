@@ -1,4 +1,5 @@
 import AvatarMenu from '@/shared/composites/AvatarMenu/AvatarMenu'
+import { ToastProvider } from '@/shared/integrations/Toast'
 import { Tooltip } from '@/shared/primitives/Tooltip'
 // import ThemeToggleSwitch from '@/ThemeToggleSwitch'
 import React, { Suspense } from 'react'
@@ -8,6 +9,7 @@ const BaseLayout: React.FC = () => {
   return (
     <div className="bg-bg-primary flex min-h-screen flex-col">
       {/* Main Content */}
+      <ToastProvider />
       <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
         <div className="text-text-primary py-8 sm:py-12">
           <Suspense fallback={null}>

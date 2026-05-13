@@ -1,0 +1,51 @@
+.Toastify__toast {
+  background: var(--color-bg-secondary);
+
+  color: var(--color-text-primary);
+
+  border: 1px solid var(--color-border-secondary);
+
+  border-radius: var(--radius-md);
+
+  box-shadow: var(--shadow-md);
+
+  min-height: 56px;
+
+  backdrop-filter: blur(8px);
+}
+
+.Toastify__toast-body {
+  color: var(--color-text-primary);
+}
+
+.Toastify__close-button {
+  color: var(--color-text-secondary);
+
+  opacity: 1;
+}
+
+/* Remove default colored backgrounds */
+.Toastify__toast--success,
+.Toastify__toast--error,
+.Toastify__toast--warning,
+.Toastify__toast--info {
+  background: var(--color-bg-secondary);
+}
+
+/* Progress bars ONLY use semantic colors */
+
+.Toastify__progress-bar--success {
+  background: var(--color-text-success);
+}
+
+.Toastify__progress-bar--error {
+  background: var(--color-text-danger);
+}
+
+.Toastify__progress-bar--warning {
+  background: var(--color-text-warning);
+}
+
+.Toastify__progress-bar--info {
+  background: var(--color-text-info);
+}
