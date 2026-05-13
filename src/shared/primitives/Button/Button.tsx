@@ -25,17 +25,25 @@ const button = cva(
 
         info: 'bg-bg-info text-text-info border border-border-info cursor-pointer',
 
-        ghost: 'bg-transparent text-text-secondary border border-transparent cursor-pointer',
+        ghost:
+          'bg-transparent rounded-md overflow-hidden text-text-secondary border border-transparent cursor-pointer',
       },
 
       size: {
         sm: 'px-3 py-1.5 text-sm',
         md: 'px-4 py-2 text-sm',
         lg: 'px-5 py-3 text-base',
+        sd: 'p-0 text-sm ',
       },
 
       fullWidth: {
         true: 'w-full',
+      },
+
+      textAlign: {
+        left: 'justify-start text-left',
+        center: 'justify-center text-center',
+        right: 'justify-end text-right',
       },
     },
 
@@ -43,6 +51,7 @@ const button = cva(
       variant: 'primary',
       size: 'md',
       fullWidth: false,
+      textAlign: 'left',
     },
   }
 )
@@ -71,7 +80,7 @@ export function Button({
 
   isLoading = false,
   isDisabled = false,
-
+  textAlign,
   leftIcon,
   rightIcon,
 
@@ -87,6 +96,7 @@ export function Button({
         variant,
         size,
         fullWidth,
+        textAlign,
         className,
       })}
       disabled={disabled}

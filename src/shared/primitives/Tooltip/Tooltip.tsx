@@ -180,7 +180,7 @@ export function Tooltip({
                   : position === 'bottom'
                     ? 'translate(-50%, 0)'
                     : position === 'left'
-                      ? 'translate(-100%, -5%)'
+                      ? 'translate(-100%, -45%)'
                       : 'translate(0, -45%)',
             }}
           >

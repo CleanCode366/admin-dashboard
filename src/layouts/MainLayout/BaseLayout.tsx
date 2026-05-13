@@ -1,5 +1,6 @@
-import { Tooltip } from '@/shared/Tooltip'
-import ThemeToggleSwitch from '@/ThemeToggleSwitch'
+import AvatarMenu from '@/shared/composites/AvatarMenu/AvatarMenu'
+import { Tooltip } from '@/shared/primitives/Tooltip'
+// import ThemeToggleSwitch from '@/ThemeToggleSwitch'
 import React, { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
@@ -12,7 +13,11 @@ const BaseLayout: React.FC = () => {
           <Suspense fallback={null}>
             <Outlet />
             <div className="absolute top-4 right-10 flex gap-2">
-              <Tooltip children={<ThemeToggleSwitch />} content="Change theme" position="left" />
+              <Tooltip
+                children={<AvatarMenu name="Admin Mod" />}
+                content="Settings"
+                position="left"
+              />
             </div>
           </Suspense>
         </div>
