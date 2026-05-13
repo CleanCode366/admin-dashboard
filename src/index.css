@@ -116,3 +116,13 @@ html[data-theme-loaded='true'] * {
     border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
