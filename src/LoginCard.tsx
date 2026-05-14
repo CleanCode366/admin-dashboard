@@ -1,5 +1,5 @@
-// import { useState } from 'react'
-// import { ChipGroup } from './Chip'
+import { useState } from 'react'
+import { ChipGroup } from './Chip'
 // import { ProgressBar } from './shared/primitives/Progressbar'
 
 function LoginCard() {
@@ -7,12 +7,12 @@ function LoginCard() {
     // Replace with your actual backend OAuth endpoint
     window.location.href = 'http://localhost:8080/oauth2/authorization/google'
   }
-  // const [selected, setSelected] = useState('all')
+  const [selected, setSelected] = useState('all')
 
   return (
     <div className="bg-bg-primary fixed inset-0 flex items-center justify-center">
       <div className="bg-bg-secondary border-border-primary w-full max-w-sm space-y-6 rounded-lg border p-6 shadow-md">
-        {/* <ChipGroup
+        <ChipGroup
           selected={selected}
           onChange={(value) => {
             setSelected(value)
@@ -46,7 +46,7 @@ function LoginCard() {
               value: 'misinformation',
             },
           ]}
-        /> */}
+        />
         {/* Heading */}
         <div className="space-y-1">
           <h2 className="text-text-primary text-center text-2xl font-semibold">Welcome</h2>
