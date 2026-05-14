@@ -12,6 +12,8 @@ export interface TooltipProps {
   delay?: number
 
   className?: string
+
+  offset?: number
 }
 
 const arrowClasses = {
@@ -77,7 +79,7 @@ export function Tooltip({
   position = 'top',
 
   delay = 400,
-
+  offset = 10,
   className = '',
 }: TooltipProps) {
   const [visible, setVisible] = useState(false)
@@ -97,7 +99,7 @@ export function Tooltip({
 
       const rect = triggerRef.current.getBoundingClientRect()
 
-      const spacing = 10
+      const spacing = offset
 
       let top = 0
       let left = 0

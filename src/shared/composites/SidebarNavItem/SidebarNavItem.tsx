@@ -6,7 +6,7 @@ import { Badge } from '../../primitives/Badge'
 const sidebarNavItem = cva(
   [
     'w-full',
-    'flex items-center justify-between',
+    'flex items-center',
     'gap-3',
 
     'rounded-lg',
@@ -27,9 +27,14 @@ const sidebarNavItem = cva(
   {
     variants: {
       isActive: {
-        true: ['bg-bg-secondary', 'text-text-primary', 'font-medium'],
+        true: ['bg-bg-tertiary', 'text-text-primary', 'font-medium'],
 
-        false: ['text-text-tertiary', 'hover:bg-bg-secondary', 'hover:text-text-primary'],
+        false: [
+          'bg-bg-secondary',
+          'text-text-tertiary',
+          'hover:bg-bg-secondary',
+          'hover:text-text-primary',
+        ],
       },
     },
 
@@ -53,23 +58,27 @@ export interface SidebarNavItemProps {
   badgeVariant?: 'danger' | 'info'
 
   className?: string
+
+  onClick?: () => void
 }
 
 export function SidebarNavItem({
-  // link,
   label,
   icon,
   isActive = false,
   badge,
   badgeVariant = 'info',
+  onClick,
   className,
 }: SidebarNavItemProps) {
   return (
-    <div
-      // type="button"
+    <button
+      type="button"
+      onClick={onClick}
       className={sidebarNavItem({
         isActive,
-        className,
+
+        className: ` ${label ? 'justify-between' : 'justify-center'} ${className ?? ''} `,
       })}
     >
       {/* Left side */}
@@ -85,7 +94,7 @@ export function SidebarNavItem({
           {badge}
         </Badge>
       )}
-    </div>
+    </button>
   )
 }
 

@@ -126,3 +126,13 @@ html[data-theme-loaded='true'] * {
     background-position: -200% 0;
   }
 }
+
+@keyframes drawerFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
