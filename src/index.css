@@ -117,6 +117,16 @@ html[data-theme-loaded='true'] * {
     box-shadow 0.25s ease;
 }
 
+/* Hide scrollbar but preserve scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
