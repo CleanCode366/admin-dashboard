@@ -10,8 +10,8 @@ const BaseLayout: React.FC = () => {
     <div className="bg-bg-primary flex min-h-screen flex-col">
       {/* Main Content */}
       <ToastProvider />
-      <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-text-primary py-8 sm:py-12">
+      <main className="">
+        <div className="text-text-primary">
           <Suspense fallback={null}>
             <Outlet />
             <div className="absolute top-4 right-10 flex gap-2">

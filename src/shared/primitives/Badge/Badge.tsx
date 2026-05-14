@@ -2,7 +2,7 @@ import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 const badge = cva(
-  'inline-flex items-center gap-1 font-medium rounded-full border transition-opacity',
+  'inline-flex items-center justify-center gap-1 font-medium rounded-full border transition-opacity',
   {
     variants: {
       variant: {
@@ -26,8 +26,26 @@ const badge = cva(
       },
 
       size: {
-        sm: 'px-2 py-0.5 text-xs',
-        md: 'px-3 py-1 text-sm',
+        xs: `
+  min-w-4
+  h-4
+  px-1
+  text-[10px]
+`,
+
+        sm: `
+  min-w-6
+  h-6
+  px-2
+  text-xs
+`,
+
+        md: `
+  min-w-7
+  h-7
+  px-3
+  text-sm
+`,
       },
     },
 
@@ -41,22 +59,32 @@ const badge = cva(
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badge> {
   children?: React.ReactNode
-  dot?: boolean
+  notification?: boolean
 }
 
-export function Badge({ children, variant, size, dot = false, className, ...props }: BadgeProps) {
-  const dotSize = size === 'sm' ? 'w-1.5 h-1.5' : 'w-2 h-2'
-
+export function Badge({
+  children,
+  variant,
+  size,
+  notification = false,
+  className,
+  ...props
+}: BadgeProps) {
+  const formattedChildren = typeof children === 'number' && children > 99 ? '99+' : children
   return (
     <span
       className={badge({
         variant,
         size,
-        className,
+        className: ` ${
+          notification
+            ? `inline-flex aspect-square items-center justify-center rounded-full p-0 leading-none font-semibold`
+            : ''
+        } ${className ?? ''} `,
       })}
       {...props}
     >
-      {dot ? <span className={`${dotSize} rounded-full bg-current`} /> : children}
+      {formattedChildren}
     </span>
   )
 }
