@@ -79,7 +79,7 @@ export function SidebarNav({
       })}
     >
       {/* Header */}
-      <div className="border-border-secondary flex items-center justify-between border-b px-4 py-4">
+      <div className="border-border-secondary flex h-16 items-center justify-between border-b px-4 py-4">
         {!collapsed && (
           <div className="flex flex-col">
             <h2 className="text-text-primary text-lg font-semibold">ModerationOS</h2>
