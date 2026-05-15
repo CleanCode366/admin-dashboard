@@ -27,7 +27,7 @@ export function Topbar({
 }: TopbarProps) {
   return (
     <header
-      className={`border-border-tertiary bg-bg-secondary sticky top-0 z-20 flex h-16 items-center justify-between border-b px-4 md:px-6 ${className} `}
+      className={`border-border-secondary bg-bg-secondary sticky top-0 z-20 flex h-16 items-center justify-between border-b px-4 md:px-6 ${className} `}
     >
       {/* Left */}
       <div className="flex items-center gap-3 md:min-w-[200px]">

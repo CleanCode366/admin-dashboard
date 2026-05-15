@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ChipGroup } from './Chip'
+import BaseCard from './shared/primitives/BaseCard'
 // import { ProgressBar } from './shared/primitives/Progressbar'
 
 function LoginCard() {
@@ -11,7 +12,10 @@ function LoginCard() {
 
   return (
     <div className="bg-bg-primary fixed inset-0 flex items-center justify-center">
-      <div className="bg-bg-secondary border-border-primary w-full max-w-sm space-y-6 rounded-lg border p-6 shadow-md">
+      <BaseCard
+        variant="success"
+        className="bg-bg-secondary border-border-primary w-full max-w-sm space-y-6 rounded-lg border p-6 shadow-md"
+      >
         <ChipGroup
           selected={selected}
           onChange={(value) => {
@@ -95,7 +99,7 @@ function LoginCard() {
           </a>
         </p>
         {/* <ProgressBar value={0.5} variant="danger" scoreLabel="AI conf." /> */}
-      </div>
+      </BaseCard>
     </div>
   )
 }
