@@ -1,6 +1,6 @@
-import OAuthCallback from '@views/Auth/OAuthCallBack'
-import BaseLayout from '@layouts/MainLayout/BaseLayout'
-import NotFound from '@views/NotFound/NotFound'
+// import OAuthCallback from '@views/Auth/OAuthCallBack'
+// import BaseLayout from '@layouts/MainLayout/BaseLayout'
+// import NotFound from '@views/NotFound/NotFound'
 // import HomePage from "@/views/Home/Home";
 // import InscriptionDetails from "@/views/InscriptionDetailPage.tsx/InscriptionDetails";
 // import Upload from "@/views/Upload/Upload";
@@ -12,24 +12,15 @@ import NotFound from '@views/NotFound/NotFound'
 // import Setting from "@views/Setting/Setting";
 // import { Navigate } from 'react-router-dom'
 import LoginPage from '@/views/LoginPage'
+import AdminLayout from '@/layouts/AdminLayout'
 
-const MainRoutes = {
+export const MainRoutes = {
   path: '/',
-  element: <BaseLayout />,
+  element: <AdminLayout />,
   children: [
     {
       index: true,
       element: <LoginPage />,
     },
-    {
-      path: 'oauth/callback',
-      element: <OAuthCallback />,
-    },
-    {
-      path: '*',
-      element: <NotFound />,
-    },
   ],
 }
-
-export default MainRoutes
