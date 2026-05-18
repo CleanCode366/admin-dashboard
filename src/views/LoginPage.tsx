@@ -1,17 +1,11 @@
 // import LoginCard from '@/LoginCard'
 import MetricCard from '@/shared/composites/MetricCard'
 
-// import { SidebarNav } from '@/shared/composites/SidebarNav'
+// import { ChipGroup } from '@/Chip'
 
-// import {
-//   CheckIcon,
-//   ExclamationTriangleIcon,
-//   PresentationChartLineIcon,
-//   QueueListIcon,
-//   UsersIcon,
-// } from '@heroicons/react/24/outline'
+// import ReportCard from '@/shared/composites/ReportCard'
 
-// import { useState } from 'react'
+// import { reports } from '@/shared/composites/ReportCard/dummyData'
 
 const LoginPage = () => {
   const metricCardData = [
