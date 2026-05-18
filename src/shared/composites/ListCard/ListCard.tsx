@@ -52,6 +52,7 @@ export function ListCard({
           handleToggle()
         }
       }}
+      onClick={handleToggle}
     >
       <div className="p-4">{header}</div>
 
