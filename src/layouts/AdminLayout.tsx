@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
@@ -125,13 +125,9 @@ const AdminLayout = () => {
       <div className={`transition-all duration-300 ${collapsed ? 'ml-[72px]' : 'ml-64'} `}>
         <Topbar
           title="Moderation Queue"
+          showSearch
+          searchPlaceholder="Search reports..."
           actionsSlot={<AvatarMenu name="Admin Mod" />}
-          searchSlot={
-            <input
-              className="border-border-secondary w-full rounded-md border-2 bg-transparent px-3 py-2 text-sm outline-none"
-              placeholder="Search reports..."
-            />
-          }
         />
 
         <main className="p-6">
