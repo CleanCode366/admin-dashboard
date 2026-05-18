@@ -1,9 +1,14 @@
 import React from 'react'
 
 import { Bars3Icon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 export interface TopbarProps {
   title: string
+
+  showSearch?: boolean
+
+  searchPlaceholder?: string
 
   searchSlot?: React.ReactNode
 
@@ -18,11 +23,11 @@ export function Topbar({
   title,
 
   searchSlot,
-
+  showSearch,
   actionsSlot,
 
   onMenuToggle,
-
+  searchPlaceholder,
   className = '',
 }: TopbarProps) {
   return (
@@ -45,9 +50,20 @@ export function Topbar({
       </div>
 
       {/* Desktop Search */}
-      {searchSlot && (
-        <div className="hidden flex-1 px-6 md:flex md:justify-center">
-          <div className="w-full max-w-xl">{searchSlot}</div>
+      {(showSearch || searchSlot) && (
+        <div className="hidden flex-1 items-center px-6 md:flex md:justify-center">
+          <div className="w-full max-w-xl">
+            {searchSlot || (
+              <div className="border-border-secondary bg-bg-secondary flex items-center gap-2 rounded-md border px-3 py-2">
+                <MagnifyingGlassIcon className="text-text-tertiary size-4 shrink-0" />
+
+                <input
+                  placeholder={searchPlaceholder || 'Search...'}
+                  className="w-full bg-transparent text-sm outline-none"
+                />
+              </div>
+            )}
+          </div>
         </div>
       )}
 

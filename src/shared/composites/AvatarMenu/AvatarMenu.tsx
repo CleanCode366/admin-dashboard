@@ -79,7 +79,6 @@ export function AvatarMenu({
 
             <div className="text-text-secondary text-xs">Moderator account</div>
           </div>
-
           {/* Items */}
           <Button
             onClick={onEditProfile}
@@ -97,7 +96,6 @@ export function AvatarMenu({
           >
             Security settings
           </Button>
-
           <div className="bg-border-tertiary my-1 h-px" />
           <Button
             onClick={onPreferences}
@@ -108,23 +106,7 @@ export function AvatarMenu({
           >
             Preferences
           </Button>
-          <Button
-            className="flex items-center justify-between px-3 py-2"
-            variant={'ghost'}
-            rightIcon={
-              <Switch
-                className="ms-6"
-                checked={themeName === 'dark'}
-                onChange={(checked: boolean) => {
-                  const newTheme = checked ? 'dark' : 'light'
-
-                  setTheme(newTheme)
-
-                  toast.info(`Theme changed to ${newTheme}`)
-                }}
-              />
-            }
-          >
+          <div className="hover:bg-bg-tertiary flex items-center justify-between rounded-md px-3 py-2 transition">
             <div className="text-text-primary flex items-center gap-3 text-sm">
               {themeName === 'dark' ? (
                 <SunIcon className="size-4" />
@@ -132,15 +114,23 @@ export function AvatarMenu({
                 <MoonIcon className="size-4" />
               )}
 
-              {themeName === 'dark' ? (
-                <div className="text-text-secondary text-sm">Light mode</div>
-              ) : (
-                <div className="text-text-secondary text-sm">Dark mode</div>
-              )}
+              <span className="text-text-secondary">
+                {themeName === 'dark' ? 'Light mode' : 'Dark mode'}
+              </span>
             </div>
-          </Button>
-          <div className="bg-border-tertiary my-1 h-px" />
 
+            <Switch
+              checked={themeName === 'dark'}
+              onChange={(checked: boolean) => {
+                const newTheme = checked ? 'dark' : 'light'
+
+                setTheme(newTheme)
+
+                toast.info(`Theme changed to ${newTheme}`)
+              }}
+            />
+          </div>{' '}
+          <div className="bg-border-tertiary my-1 h-px" />
           <Button
             onClick={onLogout}
             className="contents-center text-text-danger hover:bg-bg-danger flex w-full cursor-pointer flex-row items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition"
