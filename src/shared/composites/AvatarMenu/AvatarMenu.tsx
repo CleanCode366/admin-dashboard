@@ -74,7 +74,7 @@ export function AvatarMenu({
       {open && (
         <div className="border-border-primary bg-bg-secondary absolute right-0 z-50 mt-2 w-56 rounded-lg border p-1 shadow-md">
           {/* Header */}
-          <div className="border-border-tertiary border-b px-3 py-2">
+          <div className="border-border-tertiary mb-1 border-b px-3 py-2">
             <div className="text-text-primary text-sm font-medium">{name}</div>
 
             <div className="text-text-secondary text-xs">Moderator account</div>
@@ -106,7 +106,18 @@ export function AvatarMenu({
           >
             Preferences
           </Button>
-          <div className="hover:bg-bg-tertiary flex items-center justify-between rounded-md px-3 py-2 transition">
+          <Button
+            variant={'ghost'}
+            type="button"
+            onClick={() => {
+              const newTheme = themeName === 'dark' ? 'light' : 'dark'
+
+              setTheme(newTheme)
+
+              toast.info(`Theme changed to ${newTheme}`)
+            }}
+            className="hover:bg-bg-tertiary flex w-full items-center gap-3 rounded-md px-3 py-2 transition"
+          >
             <div className="text-text-primary flex items-center gap-3 text-sm">
               {themeName === 'dark' ? (
                 <SunIcon className="size-4" />
@@ -120,16 +131,12 @@ export function AvatarMenu({
             </div>
 
             <Switch
+              size="sm"
+              className="ml-auto"
               checked={themeName === 'dark'}
-              onChange={(checked: boolean) => {
-                const newTheme = checked ? 'dark' : 'light'
-
-                setTheme(newTheme)
-
-                toast.info(`Theme changed to ${newTheme}`)
-              }}
+              onChange={() => {}}
             />
-          </div>{' '}
+          </Button>
           <div className="bg-border-tertiary my-1 h-px" />
           <Button
             onClick={onLogout}

@@ -1,23 +1,37 @@
 import type { Preview } from '@storybook/react-vite'
 
-import '@/index.css'
+import React from 'react'
+// @ts-expect-error : Temporary workaround for using index.css from legacy code
+import '../src/index.css'
 
-import { ToastProvider } from '../src/shared/integrations/Toast'
+import { ThemeProvider } from '../src/shared/theme/ThemeProvider'
+import { StorybookThemeSync } from './StorybookThemeSync'
 
-import { ThemeProvider } from '../src/shared/theme'
+const THEMES = {
+  light: '#f5f5f5',
+  dark: '#111827',
+}
 
 const preview: Preview = {
-  decorators: [
-    (Story) => (
-      <ThemeProvider>
-        <ToastProvider />
-
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
-
   parameters: {
+    layout: 'fullscreen',
+
+    backgrounds: {
+      default: 'light',
+
+      values: [
+        {
+          name: 'light',
+          value: THEMES.light,
+        },
+
+        {
+          name: 'dark',
+          value: THEMES.dark,
+        },
+      ],
+    },
+
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -25,11 +39,49 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+  },
 
-    a11y: {
-      test: 'todo',
+  globalTypes: {
+    theme: {
+      name: 'Theme',
+
+      description: 'Application theme',
+
+      defaultValue: 'light',
+
+      toolbar: {
+        icon: 'mirror',
+
+        dynamicTitle: true,
+
+        items: [
+          {
+            value: 'light',
+            title: 'Light',
+          },
+
+          {
+            value: 'dark',
+            title: 'Dark',
+          },
+        ],
+      },
     },
   },
+
+  decorators: [
+    (Story, context) => {
+      const theme = context.globals.theme as 'light' | 'dark'
+
+      return (
+        <StorybookThemeSync theme={theme}>
+          <ThemeProvider>
+            <Story />
+          </ThemeProvider>
+        </StorybookThemeSync>
+      )
+    },
+  ],
 }
 
 export default preview

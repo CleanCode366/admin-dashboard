@@ -46,7 +46,7 @@ export const WithSearch: Story = {
 
         <input
           placeholder="Search reports..."
-          className="border-border-secondary w-full border-2 bg-transparent text-sm outline-none"
+          className="border-border-secondary text-text-secondary w-full border-2 bg-transparent text-sm outline-none"
         />
       </div>
     ),

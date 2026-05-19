@@ -47,11 +47,9 @@ export function MetricCard({
   subLabel,
 
   valueColor = 'default',
-
-  className = '',
 }: MetricCardProps) {
   return (
-    <BaseCard padding="md" className={className}>
+    <BaseCard padding="md">
       <div className="flex min-h-[72px] flex-col justify-between">
         <div className="text-text-secondary text-[10px] tracking-wider uppercase">{label}</div>
 

@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Bars3Icon } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 export interface TopbarProps {
@@ -41,9 +40,7 @@ export function Topbar({
           type="button"
           onClick={onMenuToggle}
           className="text-text-secondary hover:bg-bg-secondary hover:text-text-primary rounded-md p-2 transition-colors md:hidden"
-        >
-          <Bars3Icon className="size-5" />
-        </button>
+        ></button>
 
         {/* Title */}
         <h1 className="text-text-primary text-lg font-semibold">{title}</h1>

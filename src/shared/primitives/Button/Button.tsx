@@ -14,14 +14,17 @@ const button = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-text-info text-bg-primary border border-border-info cursor-pointer',
+        primary:
+          'bg-text-info text-bg-primary border border-border-info cursor-pointer hover:bg-text-info/70',
 
         secondary:
-          'bg-bg-secondary text-text-primary border border-border-secondary cursor-pointer',
+          'bg-bg-secondary text-text-primary border border-border-secondary cursor-pointer hover:bg-text-secondary/20',
 
-        danger: 'bg-bg-danger text-text-danger border border-border-danger cursor-pointer',
+        danger:
+          'bg-bg-danger text-text-danger border border-border-danger cursor-pointer hover:bg-text-danger/20',
 
-        warning: 'bg-bg-warning text-text-warning border border-border-warning cursor-pointer',
+        warning:
+          'bg-bg-warning text-text-warning border border-border-warning cursor-pointer hover:bg-text-warning/20',
 
         info: 'bg-bg-info text-text-info border border-border-info cursor-pointer',
 
@@ -111,7 +114,7 @@ export function Button({
       )}
 
       {/* Button content */}
-      <span>{children}</span>
+      {children}
 
       {/* Right icon hidden during loading */}
       {!isLoading && rightIcon}
