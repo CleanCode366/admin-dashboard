@@ -6,6 +6,8 @@ const meta: Meta<typeof MetricCard> = {
   title: 'Shared/Composites/MetricCard',
 
   component: MetricCard,
+
+  tags: ['autodocs'],
 }
 
 export default meta

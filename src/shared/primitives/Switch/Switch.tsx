@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { cva } from 'class-variance-authority'
 
 export interface SwitchProps {
@@ -9,15 +11,15 @@ export interface SwitchProps {
 
   className?: string
 
-  onClick?: () => void
+  size?: 'sm' | 'md'
+
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const switchTrack = cva(
   `
     relative
     inline-flex
-    h-6
-    w-11
     shrink-0
     cursor-pointer
     rounded-full
@@ -28,6 +30,12 @@ const switchTrack = cva(
   `,
   {
     variants: {
+      size: {
+        sm: 'h-5 w-9',
+
+        md: 'h-6 w-11',
+      },
+
       checked: {
         true: `
           bg-bg-secondary
@@ -42,12 +50,16 @@ const switchTrack = cva(
 
       disabled: {
         true: `
-          opacity-50
           cursor-not-allowed
+          opacity-50
         `,
 
         false: '',
       },
+    },
+
+    defaultVariants: {
+      size: 'md',
     },
   }
 )
@@ -56,8 +68,6 @@ const switchThumb = cva(
   `
     pointer-events-none
     inline-block
-    h-5
-    w-5
     transform
     rounded-full
     bg-white
@@ -68,35 +78,89 @@ const switchThumb = cva(
   `,
   {
     variants: {
-      checked: {
-        true: 'translate-x-5 translate-y-0.25',
-        false: 'translate-x-0.5 translate-y-0.25',
+      size: {
+        sm: `
+          h-4
+          w-4
+        `,
+
+        md: `
+          h-5
+          w-5
+        `,
       },
+
+      checked: {
+        true: '',
+
+        false: '',
+      },
+    },
+
+    compoundVariants: [
+      {
+        checked: true,
+        size: 'sm',
+        className: 'translate-x-[17px] translate-y-[1px]',
+      },
+
+      {
+        checked: false,
+        size: 'sm',
+        className: 'translate-x-[1px] translate-y-[1px]',
+      },
+
+      {
+        checked: true,
+        size: 'md',
+        className: 'translate-x-5 translate-y-0.25',
+      },
+
+      {
+        checked: false,
+        size: 'md',
+        className: 'translate-x-0.5 translate-y-0.25',
+      },
+    ],
+
+    defaultVariants: {
+      size: 'md',
     },
   }
 )
 
-export function Switch({ checked, onChange, disabled = false, className = '' }: SwitchProps) {
+export function Switch({
+  checked,
+  onChange,
+  disabled = false,
+  className = 'ml-auto',
+  size = 'md',
+  onClick,
+}: SwitchProps) {
   return (
     <button
       type="button"
       role="switch"
       aria-checked={checked}
       disabled={disabled}
-      onClick={() => {
+      onClick={(e) => {
         if (disabled) return
+
+        onClick?.(e)
 
         onChange?.(!checked)
       }}
       className={switchTrack({
         checked,
         disabled,
+        size,
         className,
       })}
     >
       <span
         className={switchThumb({
           checked,
+          size,
         })}
       />
     </button>

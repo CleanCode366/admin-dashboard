@@ -14,7 +14,7 @@ const baseCardStyles = cva(
       variant: {
         default: `
           border-border-secondary
-          bg-bg-primary
+          bg-bg-secondary
         `,
 
         danger: `

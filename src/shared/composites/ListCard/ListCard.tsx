@@ -32,6 +32,8 @@ export function ListCard({
   isExpanded = false,
 
   onToggle,
+
+  className = 'cursor-pointer',
 }: ListCardProps) {
   const handleToggle = () => {
     if (!isClickable || !onToggle) {
@@ -53,6 +55,7 @@ export function ListCard({
         }
       }}
       onClick={handleToggle}
+      className={className}
     >
       <div className="p-4">{header}</div>
 
