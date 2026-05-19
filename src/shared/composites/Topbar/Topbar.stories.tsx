@@ -7,6 +7,7 @@ import { Topbar } from './Topbar'
 import { AvatarMenu } from '@/shared/composites/AvatarMenu/AvatarMenu'
 
 import { Button } from '@/shared/primitives/Button'
+import { Input } from '@/shared/primitives/Input'
 
 const meta = {
   title: 'Shared/Composites/Topbar',
@@ -41,14 +42,14 @@ export const WithSearch: Story = {
     title: 'Moderation Queue',
 
     searchSlot: (
-      <div className="border-border-secondary bg-bg-secondary flex items-center gap-2 rounded-md border px-3 py-2">
-        <MagnifyingGlassIcon className="text-text-tertiary size-4" />
-
-        <input
-          placeholder="Search reports..."
-          className="border-border-secondary text-text-secondary w-full border-2 bg-transparent text-sm outline-none"
-        />
-      </div>
+      <Input
+        type="search"
+        value=""
+        onChange={() => {}}
+        placeholder={'Search...'}
+        prefixIcon={<MagnifyingGlassIcon className="text-text-tertiary size-4" />}
+        className="py-2"
+      />
     ),
 
     actionsSlot: <AvatarMenu name="Admin Mod" />,

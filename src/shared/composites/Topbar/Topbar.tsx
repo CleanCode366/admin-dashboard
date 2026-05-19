@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import { Input } from '@/shared/primitives/Input'
 
 export interface TopbarProps {
   title: string
@@ -29,6 +30,7 @@ export function Topbar({
   searchPlaceholder,
   className = '',
 }: TopbarProps) {
+  const [searchQuery, overwriteSearchQuery] = useState('')
   return (
     <header
       className={`border-border-secondary bg-bg-secondary sticky top-0 z-20 flex h-16 items-center justify-between border-b px-4 md:px-6 ${className} `}
@@ -51,14 +53,15 @@ export function Topbar({
         <div className="hidden flex-1 items-center px-6 md:flex md:justify-center">
           <div className="w-full max-w-xl">
             {searchSlot || (
-              <div className="border-border-secondary bg-bg-secondary flex items-center gap-2 rounded-md border px-3 py-2">
-                <MagnifyingGlassIcon className="text-text-tertiary size-4 shrink-0" />
-
-                <input
-                  placeholder={searchPlaceholder || 'Search...'}
-                  className="w-full bg-transparent text-sm outline-none"
-                />
-              </div>
+              <Input
+                type="search"
+                value={searchQuery}
+                onChange={(e) => {
+                  overwriteSearchQuery(e)
+                }}
+                placeholder={searchPlaceholder || 'Search...'}
+                prefixIcon={<MagnifyingGlassIcon className="text-text-tertiary size-4" />}
+              />
             )}
           </div>
         </div>
