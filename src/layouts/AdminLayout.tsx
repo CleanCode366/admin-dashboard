@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
@@ -17,10 +17,16 @@ import {
   QueueListIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
+import { Skeleton } from '@/shared/primitives/Skeleton'
 
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false)
   const [activeItem, setActiveItem] = useState('Queue')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => setLoading(!loading), 5000)
+  }, [])
 
   return (
     <div className="bg-bg-primary text-text-primary min-h-screen">
@@ -127,7 +133,13 @@ const AdminLayout = () => {
           title="Moderation Queue"
           showSearch
           searchPlaceholder="Search reports..."
-          actionsSlot={<AvatarMenu name="Admin Mod" />}
+          actionsSlot={
+            loading ? (
+              <Skeleton variant={'avatar'} className="shimmer" />
+            ) : (
+              <AvatarMenu name="Admin Mod" />
+            )
+          }
         />
 
         <main className="p-6">

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { useState } from 'react'
 
-import { MagnifyingGlassIcon, EyeIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import { Input, type InputProps } from './Input'
 
@@ -81,7 +81,7 @@ export const WithIcons: Story = {
 
     prefixIcon: <MagnifyingGlassIcon className="size-4" />,
 
-    suffixIcon: <EyeIcon className="size-4" />,
+    suffixIcon: <XMarkIcon className="size-4" />,
   },
 }
 
@@ -110,5 +110,17 @@ export const Focus: Story = {
     const input = canvasElement.querySelector('input')
 
     input?.focus()
+  },
+}
+
+export const ReadOnly: Story = {
+  render: (args) => <StatefulInput {...args} />,
+
+  args: {
+    label: 'Read only',
+
+    value: 'Readonly value',
+
+    isReadOnly: true,
   },
 }
