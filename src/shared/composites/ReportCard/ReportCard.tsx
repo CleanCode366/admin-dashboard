@@ -213,7 +213,7 @@ export function ReportCard({
       isClickable
       onToggle={onToggleExpand}
       header={
-        <div className="relative">
+        <div className="space-y-4">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
@@ -225,30 +225,29 @@ export function ReportCard({
 
                 <Badge variant="info">{resolvedReport.targetType}</Badge>
               </div>
+
               <div>
-                {' '}
                 <span className="text-text-primary text-sm font-medium">
                   {resolvedReport.reportReason}
                 </span>
               </div>
-              <div className="text-text-secondary text-xs">
-                Reported by {resolvedReport.reporter.name} · AI score:{' '}
-                {resolvedReport.aiConfidenceScore}
-              </div>
             </div>
 
-            <div className="w-40">
+            <div className="flex w-24 shrink-0 flex-col items-center justify-center gap-4 sm:w-40">
               <ProgressBar
                 value={resolvedReport.aiConfidenceScore}
                 size="sm"
                 variant="auto"
                 scoreLabel="AI conf."
               />
+              <div className="text-text-secondary text-xs">
+                Reported by {resolvedReport.reporter.name} · AI score:{' '}
+                {resolvedReport.aiConfidenceScore}
+              </div>
             </div>
           </div>
-          <div
-            className={`absolute flex w-full items-center justify-center ${isExpanded ? 'top-19' : 'top-23'} text-text-secondary text-xs`}
-          >
+
+          <div className="text-text-secondary flex justify-center text-xs">
             <span className="cursor-pointer">
               Click to view {isExpanded ? 'report summary' : 'detailed report'}
             </span>

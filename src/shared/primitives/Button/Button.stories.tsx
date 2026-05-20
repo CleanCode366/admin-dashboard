@@ -123,3 +123,22 @@ export const FullWidth: Story = {
     fullWidth: true,
   },
 }
+export const Focused: Story = {
+  args: {
+    children: 'Focused Button',
+  },
+
+  play: async ({ canvasElement }) => {
+    const button = canvasElement.querySelector('button')
+
+    button?.focus()
+  },
+}
+
+export const IconOnly: Story = {
+  args: {
+    'aria-label': 'Close',
+
+    children: '×',
+  },
+}

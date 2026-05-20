@@ -75,3 +75,11 @@ export const BrokenImageFallback: Story = {
     src: '/broken-image.png',
   },
 }
+
+export const Decorative: Story = {
+  args: {
+    name: '',
+
+    src: 'https://i.pravatar.cc/150?img=12',
+  },
+}
