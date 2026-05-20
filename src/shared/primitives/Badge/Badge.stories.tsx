@@ -117,6 +117,14 @@ export const Medium: Story = {
 }
 
 export const Dot: Story = {
+  render: (args) => (
+    <div className="flex items-center gap-2">
+      <Badge {...args} />
+
+      <span className="text-sm">System online</span>
+    </div>
+  ),
+
   args: {
     variant: 'success',
     dot: true,

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-
+import { useState } from 'react'
 import { fn } from 'storybook/test'
 
 import { Switch } from './Switch'
@@ -53,5 +53,16 @@ export const DisabledOn: Story = {
   args: {
     checked: true,
     disabled: true,
+  },
+}
+
+export const Interactive: Story = {
+  args: {
+    checked: false,
+  },
+  render: (args) => {
+    const [checked, setChecked] = useState(false)
+
+    return <Switch {...args} checked={checked} onChange={setChecked} />
   },
 }

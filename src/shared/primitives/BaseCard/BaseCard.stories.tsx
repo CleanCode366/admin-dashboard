@@ -91,8 +91,7 @@ export const NestedBaseCards: Story = {
   render: () => (
     <BaseCard padding="lg">
       <div className="space-y-4">
-        <p>Parent card</p>
-
+        <h2 className="text-text-primary text-sm font-medium">Parent card</h2>
         <BaseCard variant="info" padding="sm">
           Nested card
         </BaseCard>

@@ -17,7 +17,12 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const IconButton = () => (
-  <button className="bg-bg-secondary border-border-secondary text-text-primary rounded-md border p-2">
+  <button
+    type="button"
+    aria-label="Information"
+    className="bg-bg-secondary border-border-secondary text-text-primary rounded-md border p-2"
+  >
+    {' '}
     <InformationCircleIcon className="h-5 w-5" />
   </button>
 )

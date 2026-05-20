@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { Input } from '@/shared/primitives/Input'
 
 export interface TopbarProps {
@@ -25,8 +25,6 @@ export function Topbar({
   searchSlot,
   showSearch,
   actionsSlot,
-
-  onMenuToggle,
   searchPlaceholder,
   className = '',
 }: TopbarProps) {
@@ -37,12 +35,12 @@ export function Topbar({
     >
       {/* Left */}
       <div className="flex items-center gap-3 md:min-w-[200px]">
-        {/* Mobile hamburger */}
-        <button
+        {/* In case logo chahiye */}
+        {/* <button
           type="button"
           onClick={onMenuToggle}
           className="text-text-secondary hover:bg-bg-secondary hover:text-text-primary rounded-md p-2 transition-colors md:hidden"
-        ></button>
+        ></button> */}
 
         {/* Title */}
         <h1 className="text-text-primary text-lg font-semibold">{title}</h1>
@@ -61,6 +59,20 @@ export function Topbar({
                 }}
                 placeholder={searchPlaceholder || 'Search...'}
                 prefixIcon={<MagnifyingGlassIcon className="text-text-tertiary size-4" />}
+                suffixIcon={
+                  searchQuery ? (
+                    <button
+                      type="button"
+                      aria-label="Clear search"
+                      onClick={() => {
+                        overwriteSearchQuery('')
+                      }}
+                      className="text-text-tertiary hover:text-text-primary cursor-pointer transition-colors"
+                    >
+                      <XMarkIcon className="size-4" />
+                    </button>
+                  ) : null
+                }
               />
             )}
           </div>

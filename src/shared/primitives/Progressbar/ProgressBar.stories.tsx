@@ -80,3 +80,13 @@ export const ExtraSmall: Story = {
     size: 'xs',
   },
 }
+
+export const WithAccessibleLabel: Story = {
+  args: {
+    value: 0.65,
+
+    variant: 'warning',
+
+    scoreLabel: 'AI confidence',
+  },
+}
