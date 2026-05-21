@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import { Badge } from '@/shared/primitives/Badge'
 
 import { Button } from '@/shared/primitives/Button'
@@ -10,6 +9,7 @@ import { ListCard } from '@/shared/composites/ListCard'
 
 import { reports, deriveAvailableActions } from './dummyData'
 import { LockClosedIcon } from '@heroicons/react/24/solid'
+import { Modal } from '@/shared/primitives/Modal'
 
 export type ReportStatus = 'PENDING' | 'ESCALATED_TO_HUMAN' | 'RESOLVED' | 'DISMISSED'
 
@@ -197,8 +197,11 @@ export function ReportCard({
 
   claimedBy,
 
+  className,
+
   useDummyData = false,
 }: ReportCardProps) {
+  const [selectedAction, setSelectedAction] = useState<ModerationAction | null>(null)
   const resolvedReport = useDummyData ? reports[0] : report
 
   if (!resolvedReport) {
@@ -208,114 +211,163 @@ export function ReportCard({
   const availableActions = deriveAvailableActions(resolvedReport, isClaimed)
 
   return (
-    <ListCard
-      isExpanded={isExpanded}
-      isClickable
-      onToggle={onToggleExpand}
-      header={
-        <div className="space-y-4">
-          <div className="flex items-start justify-between gap-4">
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-text-secondary text-xs font-medium">{resolvedReport.id}</span>
+    <>
+      <ListCard
+        className={className}
+        isExpanded={isExpanded}
+        isClickable
+        onToggle={onToggleExpand}
+        header={
+          <div className="space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-text-secondary text-xs font-medium">
+                    {resolvedReport.id}
+                  </span>
 
-                <Badge variant={getStatusBadgeVariant(resolvedReport.status)}>
-                  {formatStatus(resolvedReport.status)}
-                </Badge>
+                  <Badge variant={getStatusBadgeVariant(resolvedReport.status)}>
+                    {formatStatus(resolvedReport.status)}
+                  </Badge>
 
-                <Badge variant="info">{resolvedReport.targetType}</Badge>
+                  <Badge variant="info">{resolvedReport.targetType}</Badge>
+                </div>
+
+                <div>
+                  <span className="text-text-primary text-sm font-medium">
+                    {resolvedReport.reportReason}
+                  </span>
+                </div>
               </div>
 
-              <div>
-                <span className="text-text-primary text-sm font-medium">
-                  {resolvedReport.reportReason}
-                </span>
+              <div className="flex w-24 shrink-0 flex-col items-center justify-center gap-4 sm:w-auto">
+                <ProgressBar
+                  value={resolvedReport.aiConfidenceScore}
+                  size="sm"
+                  variant="auto"
+                  scoreLabel="AI conf."
+                />
+                <div className="text-text-secondary text-xs">
+                  Reported by {resolvedReport.reporter.name} · AI score:{' '}
+                  {resolvedReport.aiConfidenceScore}
+                </div>
               </div>
             </div>
 
-            <div className="flex w-24 shrink-0 flex-col items-center justify-center gap-4 sm:w-40">
-              <ProgressBar
-                value={resolvedReport.aiConfidenceScore}
-                size="sm"
-                variant="auto"
-                scoreLabel="AI conf."
-              />
-              <div className="text-text-secondary text-xs">
-                Reported by {resolvedReport.reporter.name} · AI score:{' '}
-                {resolvedReport.aiConfidenceScore}
-              </div>
+            <div className="text-text-secondary flex justify-center text-xs">
+              <span className="cursor-pointer">
+                Click to view {isExpanded ? 'report summary' : 'detailed report'}
+              </span>
+            </div>
+          </div>
+        }
+        footer={
+          isClaimed ? (
+            <div className="text-text-warning flex flex-1 items-center gap-2 py-2 text-sm sm:px-4">
+              <LockClosedIcon className="h-4 w-4" /> Being reviewed by {claimedBy}
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-1 py-2 sm:gap-3 sm:px-4">
+              {availableActions.map((action) => (
+                <Button
+                  key={action}
+                  variant={getButtonVariant(action)}
+                  size="sm"
+                  onClick={() => {
+                    setSelectedAction(action)
+                  }}
+                >
+                  {formatActionLabel(action)}
+                </Button>
+              ))}
+            </div>
+          )
+        }
+      >
+        <div className="space-y-6">
+          <StatusPipeline />
+
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <div>
+              Reporter: <span className="text-text-primary">{resolvedReport.reporter.name}</span>
+            </div>
+
+            <div>
+              Author: <span className="text-text-primary">{resolvedReport.author.name}</span>
+            </div>
+
+            <div>
+              Prior reports:{' '}
+              <span className="text-text-danger">{resolvedReport.author.priorReportCount}</span>
             </div>
           </div>
 
-          <div className="text-text-secondary flex justify-center text-xs">
-            <span className="cursor-pointer">
-              Click to view {isExpanded ? 'report summary' : 'detailed report'}
-            </span>
+          <div className="space-y-2">
+            <div className="text-text-secondary text-xs tracking-wider uppercase">Content</div>
+
+            <div className="bg-bg-tertiary text-text-primary rounded-lg p-4 text-sm">
+              "{resolvedReport.description}"
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-text-secondary text-xs tracking-wider uppercase">Audit Trail</div>
+
+            <div className="bg-bg-tertiary text-text-secondary space-y-2 rounded-lg p-4 text-xs">
+              {resolvedReport.auditTrail.map((entry) => (
+                <div key={entry.id}>
+                  {entry.timestamp} · {entry.action}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      }
-      footer={
-        isClaimed ? (
-          <div className="text-text-warning flex flex-1 items-center gap-2 text-sm">
-            <LockClosedIcon className="h-4 w-4" /> Being reviewed by {claimedBy}
-          </div>
-        ) : (
+      </ListCard>
+      <Modal
+        isOpen={selectedAction !== null}
+        onClose={() => {
+          setSelectedAction(null)
+        }}
+        title="Confirm Moderation Action"
+        footer={
           <>
-            {availableActions.map((action) => (
-              <Button
-                key={action}
-                variant={getButtonVariant(action)}
-                size="sm"
-                onClick={() => {
-                  onAction(resolvedReport.id, action)
-                }}
-              >
-                {formatActionLabel(action)}
-              </Button>
-            ))}
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setSelectedAction(null)
+              }}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              variant={selectedAction ? getButtonVariant(selectedAction) : 'primary'}
+              onClick={() => {
+                if (!selectedAction) return
+
+                onAction(resolvedReport.id, selectedAction)
+
+                setSelectedAction(null)
+              }}
+            >
+              Confirm
+            </Button>
           </>
-        )
-      }
-    >
-      <div className="space-y-6">
-        <StatusPipeline />
+        }
+      >
+        <div className="space-y-3">
+          <p className="text-text-primary text-sm">Are you sure you want to:</p>
 
-        <div className="flex flex-wrap items-center gap-4 text-sm">
-          <div>
-            Reporter: <span className="text-text-primary">{resolvedReport.reporter.name}</span>
+          <div className="bg-bg-tertiary text-text-primary rounded-lg px-4 py-3 text-sm font-medium">
+            {selectedAction && formatActionLabel(selectedAction)}
           </div>
 
-          <div>
-            Author: <span className="text-text-primary">{resolvedReport.author.name}</span>
-          </div>
-
-          <div>
-            Prior reports:{' '}
-            <span className="text-text-danger">{resolvedReport.author.priorReportCount}</span>
-          </div>
+          <p className="text-text-secondary text-xs">
+            This moderation action may affect platform visibility and user access.
+          </p>
         </div>
-
-        <div className="space-y-2">
-          <div className="text-text-secondary text-xs tracking-wider uppercase">Content</div>
-
-          <div className="bg-bg-tertiary text-text-primary rounded-lg p-4 text-sm">
-            "{resolvedReport.description}"
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <div className="text-text-secondary text-xs tracking-wider uppercase">Audit Trail</div>
-
-          <div className="bg-bg-tertiary text-text-secondary space-y-2 rounded-lg p-4 text-xs">
-            {resolvedReport.auditTrail.map((entry) => (
-              <div key={entry.id}>
-                {entry.timestamp} · {entry.action}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </ListCard>
+      </Modal>
+    </>
   )
 }
 
