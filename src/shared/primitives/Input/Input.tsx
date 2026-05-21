@@ -30,6 +30,8 @@ export interface InputProps {
   testId?: string
 
   className?: string
+
+  autoFocus?: boolean
 }
 
 const inputStyles = cva(

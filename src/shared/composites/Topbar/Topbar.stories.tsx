@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { MagnifyingGlassIcon, BellIcon } from '@heroicons/react/24/outline'
+import { BellIcon } from '@heroicons/react/24/outline'
 
 import { Topbar } from './Topbar'
 
 import { AvatarMenu } from '@/shared/composites/AvatarMenu/AvatarMenu'
 
 import { Button } from '@/shared/primitives/Button'
-import { Input } from '@/shared/primitives/Input'
 
 const meta = {
   title: 'Shared/Composites/Topbar',
@@ -41,16 +40,7 @@ export const WithSearch: Story = {
   args: {
     title: 'Moderation Queue',
 
-    searchSlot: (
-      <Input
-        type="search"
-        value=""
-        onChange={() => {}}
-        placeholder={'Search...'}
-        prefixIcon={<MagnifyingGlassIcon className="text-text-tertiary size-4" />}
-        className="py-2"
-      />
-    ),
+    showSearch: true,
 
     actionsSlot: <AvatarMenu name="Admin Mod" />,
   },

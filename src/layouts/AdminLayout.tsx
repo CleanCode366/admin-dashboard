@@ -25,7 +25,13 @@ const AdminLayout = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setTimeout(() => setLoading(!loading), 5000)
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 5000)
+
+    return () => {
+      clearTimeout(timer)
+    }
   }, [])
 
   return (

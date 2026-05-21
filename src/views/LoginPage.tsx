@@ -111,7 +111,7 @@ const LoginPage = () => {
             onAction={(reportId, action) => {
               console.log('Action:', action, 'on', reportId)
             }}
-            className="bg-bg-secondary"
+            className="bg-bg-secondary cursor-pointer"
           />
         ))}
       </div>

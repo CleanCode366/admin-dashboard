@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { BaseCard } from '@/shared/primitives/BaseCard'
+// import { Button } from '@/stories/Button'
 
 export interface ListCardProps {
   children: React.ReactNode
@@ -44,35 +45,29 @@ export function ListCard({
   }
 
   return (
-    <BaseCard
-      role={isClickable ? 'button' : undefined}
-      tabIndex={isClickable ? 0 : undefined}
-      onKeyDown={(e) => {
-        if (isClickable && (e.key === 'Enter' || e.key === ' ')) {
-          e.preventDefault()
+    <BaseCard className={className}>
+      <div
+        role={isClickable ? 'button' : undefined}
+        tabIndex={isClickable ? 0 : undefined}
+        onClick={isClickable ? handleToggle : undefined}
+        onKeyDown={(e) => {
+          if (isClickable && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault()
 
-          handleToggle()
-        }
-      }}
-      onClick={handleToggle}
-      className={className}
-    >
-      <div className="p-4">{header}</div>
+            handleToggle()
+          }
+        }}
+        className="outline-none"
+      >
+        <div className="p-4">{header}</div>
 
-      {isExpanded && (
-        <>
-          <div className="border-border-tertiary border-t p-4">{children}</div>
-
-          {footer && (
-            <div
-              onClickCapture={(e) => e.stopPropagation()}
-              className="border-border-tertiary flex flex-wrap gap-2 border-t p-4"
-            >
-              {footer}
-            </div>
-          )}
-        </>
-      )}
+        {isExpanded && (
+          <>
+            <div className="border-border-tertiary border-t p-4">{children}</div>
+            <div className="flex gap-3">{footer}</div>
+          </>
+        )}
+      </div>
     </BaseCard>
   )
 }

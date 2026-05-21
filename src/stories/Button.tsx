@@ -12,7 +12,7 @@ export interface ButtonProps {
   /** Button contents */
   label: string
   /** Optional click handler */
-  onClick?: () => void
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 /** Primary UI component for user interaction */
@@ -21,6 +21,7 @@ export const Button = ({
   size = 'medium',
   backgroundColor,
   label,
+  // onClick,
   ...props
 }: ButtonProps) => {
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary'
