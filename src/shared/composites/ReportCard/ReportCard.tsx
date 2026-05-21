@@ -267,7 +267,7 @@ export function ReportCard({
               <LockClosedIcon className="h-4 w-4" /> Being reviewed by {claimedBy}
             </div>
           ) : (
-            <div className="flex flex-wrap gap-1 py-2 sm:gap-3 sm:px-4">
+            <div className="flex flex-wrap gap-1 py-2 sm:gap-3">
               {availableActions.map((action) => (
                 <Button
                   key={action}
