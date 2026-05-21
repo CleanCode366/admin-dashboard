@@ -15,7 +15,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=chpt_bd8d0a3ce41cca0",
-    "generate:api": "openapi-typescript http://localhost:8080/v3/api-docs -o src/api/generated/types.ts"
+    "generate": "orval --config orval.config.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [
@@ -28,6 +28,7 @@
     "@react-oauth/google": "^0.12.2",
     "@storybook/react": "^10.3.6",
     "@tailwindcss/vite": "^4.2.4",
+    "@tanstack/react-query": "^5.100.11",
     "@types/js-cookie": "^3.0.6",
     "@vitejs/plugin-react-swc": "^4.3.0",
     "axios": "^1.13.2",
@@ -72,7 +73,7 @@
     "globals": "^17.5.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.2",
-    "openapi-typescript": "^7.13.0",
+    "orval": "^8.11.0",
     "playwright": "^1.59.1",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
