@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { BaseCard } from '@/shared/primitives/BaseCard'
-// import { Button } from '@/stories/Button'
 
 export interface ListCardProps {
   children: React.ReactNode
@@ -34,40 +33,33 @@ export function ListCard({
 
   onToggle,
 
-  className = 'cursor-pointer',
+  className = '',
+
+  testId,
 }: ListCardProps) {
-  const handleToggle = () => {
-    if (!isClickable || !onToggle) {
-      return
-    }
-
-    onToggle()
-  }
-
   return (
-    <BaseCard className={className}>
-      <div
-        role={isClickable ? 'button' : undefined}
-        tabIndex={isClickable ? 0 : undefined}
-        onClick={isClickable ? handleToggle : undefined}
-        onKeyDown={(e) => {
-          if (isClickable && (e.key === 'Enter' || e.key === ' ')) {
-            e.preventDefault()
-
-            handleToggle()
-          }
-        }}
-        className="outline-none"
+    <BaseCard className={className} testId={testId}>
+      {/* Header Trigger */}
+      <button
+        type="button"
+        aria-expanded={isExpanded}
+        onClick={isClickable ? onToggle : undefined}
+        disabled={!isClickable}
+        className="focus-visible:ring-border-primary w-full cursor-pointer text-left transition-colors outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-default"
       >
         <div className="p-4">{header}</div>
+      </button>
 
-        {isExpanded && (
-          <>
-            <div className="border-border-tertiary border-t p-4">{children}</div>
-            <div className="flex gap-3">{footer}</div>
-          </>
-        )}
-      </div>
+      {/* Expanded Content */}
+      {isExpanded && (
+        <>
+          <div className="border-border-tertiary border-t p-4">{children}</div>
+
+          {footer && (
+            <div className="border-border-tertiary flex flex-wrap gap-2 border-t p-4">{footer}</div>
+          )}
+        </>
+      )}
     </BaseCard>
   )
 }
