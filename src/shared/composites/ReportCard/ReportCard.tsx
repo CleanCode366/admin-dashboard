@@ -60,6 +60,8 @@ export interface Report {
     priorReportCount: number
   }
 
+  resolvedAction?: ModerationAction
+
   auditTrail: AuditTrailEntry[]
 }
 
@@ -161,6 +163,22 @@ function getButtonVariant(
       return 'primary'
   }
 }
+
+function getResolvedMessage(report: Report) {
+  switch (report.resolvedAction) {
+    case 'DISMISS':
+      return 'Report was dismissed by the admin moderator'
+    case 'BAN_AUTHOR':
+      return 'Author was banned by the admin moderator'
+    case 'WARN_AUTHOR':
+      return 'Author was warned by the admin moderator'
+    case 'REMOVE_CONTENT':
+      return 'Reported content was removed by the admin moderator'
+    default:
+      return 'Report was resolved by the admin moderator'
+  }
+}
+
 function StatusPipeline() {
   const stages = ['Pending', 'AI screening', 'Escalated', 'Resolved']
 
@@ -265,6 +283,10 @@ export function ReportCard({
           isClaimed ? (
             <div className="text-text-warning flex flex-1 items-center gap-2 py-2 text-sm sm:px-4">
               <LockClosedIcon className="h-4 w-4" /> Being reviewed by {claimedBy}
+            </div>
+          ) : resolvedReport.status === 'RESOLVED' || resolvedReport.status === 'DISMISSED' ? (
+            <div className="text-text-success flex flex-1 items-center gap-2 py-2 text-sm sm:px-4">
+              <LockClosedIcon className="h-4 w-4" /> {getResolvedMessage(resolvedReport)}
             </div>
           ) : (
             <div className="flex flex-wrap gap-1 py-2 sm:gap-3">

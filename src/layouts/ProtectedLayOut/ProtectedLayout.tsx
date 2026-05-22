@@ -88,7 +88,7 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
       return <Navigate to={pendingRedirect} replace />
     }
 
-    return <Navigate to="/home" replace />
+    return <Navigate to="/dashboard" replace />
   }
 
   return <>{children}</>

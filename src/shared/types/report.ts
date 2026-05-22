@@ -47,5 +47,7 @@ export interface Report {
     priorReportCount: number
   }
 
+  resolvedAction?: ModerationAction
+
   auditTrail: AuditTrailEntry[]
 }

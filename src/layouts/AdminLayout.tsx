@@ -1,8 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
+import { useGetReports } from '@/api/endpoints/reports/reports'
+import AuthContext from '@/context/AuthContext'
+import {
+  applyReportOverrides,
+  forceOnlineWithoutAuth,
+  getSidebarStatusCounts,
+  isOnline,
+  toCardReport,
+} from '@/features/reports/reportViewModel'
+import type { Report } from '@/shared/types/report'
 import { SidebarNav } from '@/shared/composites/SidebarNav'
+import { reports as dummyReports } from '@/shared/composites/ReportCard/dummyData'
 
 import { Topbar } from '@/shared/composites/Topbar'
 
@@ -17,7 +28,7 @@ import {
   QueueListIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
-import { Skeleton } from '@/shared/primitives/Skeleton'
+import HistoryIcon from '@/shared/illustrations/HistoryIcon'
 import BottomNav from '@/shared/composites/BottomNav/BottomNav'
 
 const navItems = [
@@ -30,7 +41,19 @@ const navItems = [
 
     badge: 3,
 
-    badgeVariant: 'danger' as const,
+    badgeVariant: 'info' as const,
+  },
+
+  {
+    label: 'Pending',
+
+    route: '/pending',
+
+    icon: <HistoryIcon className="size-4" />,
+
+    badge: 0,
+
+    badgeVariant: 'warning' as const,
   },
 
   {
@@ -42,7 +65,7 @@ const navItems = [
 
     badge: 12,
 
-    badgeVariant: 'info' as const,
+    badgeVariant: 'success' as const,
   },
 
   {
@@ -74,20 +97,146 @@ const navItems = [
   },
 ]
 
+export interface AdminLayoutOutletContext {
+  reportOverrides: Record<string, Partial<Report>>
+  updateReport: (reportId: string, patch: Partial<Report>) => void
+}
+
 const AdminLayout = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { isAuthenticated } = useContext(AuthContext)
   const [collapsed, setCollapsed] = useState(false)
   const [activeRoute, setActiveRoute] = useState('/queue')
-  const [loading, setLoading] = useState(true)
+  const [reportOverrides, setReportOverrides] = useState<Record<string, Partial<Report>>>({})
+  const searchQuery = new URLSearchParams(location.search).get('q') ?? ''
+  const shouldFetchOnlineReports = isOnline && isAuthenticated
+  const { data: reportsResponse } = useGetReports(undefined, {
+    query: { enabled: shouldFetchOnlineReports },
+  })
+
+  const onlineReports = useMemo(
+    () => (reportsResponse?.status === 200 ? reportsResponse.data.map(toCardReport) : []),
+    [reportsResponse]
+  )
+  const reports = isOnline
+    ? isAuthenticated
+      ? onlineReports
+      : forceOnlineWithoutAuth
+        ? []
+        : dummyReports
+    : dummyReports
+  const activeReports = useMemo(
+    () => applyReportOverrides(reports, reportOverrides),
+    [reportOverrides, reports]
+  )
+  const statusCounts = useMemo(() => getSidebarStatusCounts(activeReports), [activeReports])
+  const navItemsWithCounts = useMemo(
+    () =>
+      navItems.map((item) => ({
+        ...item,
+        badge:
+          item.route === '/queue'
+            ? statusCounts.queue
+            : item.route === '/pending'
+              ? statusCounts.pending
+            : item.route === '/resolved'
+              ? statusCounts.resolved
+              : item.route === '/escalated'
+                ? statusCounts.escalated
+                : item.badge,
+      })),
+    [statusCounts]
+  )
+
+  const syncActiveRouteFromSearch = () => {
+    const status = new URLSearchParams(location.search).get('status')
+    if (status === 'pending') {
+      setActiveRoute('/pending')
+      return
+    }
+
+    if (status === 'resolved') {
+      setActiveRoute('/resolved')
+      return
+    }
+
+    if (status === 'escalated') {
+      setActiveRoute('/escalated')
+      return
+    }
+
+    setActiveRoute('/queue')
+  }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 5000)
+    syncActiveRouteFromSearch()
+  }, [location.search])
 
-    return () => {
-      clearTimeout(timer)
+  const handleStatusNavigation = (route: string) => {
+    setActiveRoute(route)
+    const params = new URLSearchParams(location.search)
+
+    if (route === '/queue') {
+      params.set('status', 'queue')
+      navigate(`/dashboard?${params.toString()}`)
+      return
     }
-  }, [])
+
+    if (route === '/resolved') {
+      params.set('status', 'resolved')
+      navigate(`/dashboard?${params.toString()}`)
+      return
+    }
+
+    if (route === '/pending') {
+      params.set('status', 'pending')
+      navigate(`/dashboard?${params.toString()}`)
+      return
+    }
+
+    if (route === '/escalated') {
+      params.set('status', 'escalated')
+      navigate(`/dashboard?${params.toString()}`)
+    }
+  }
+
+  const handleSearch = (query: string) => {
+    const params = new URLSearchParams(location.search)
+    const trimmedQuery = query.trim()
+
+    if (trimmedQuery) {
+      params.set('q', trimmedQuery)
+    } else {
+      params.delete('q')
+    }
+
+    if (!params.get('status')) {
+      params.set('status', 'queue')
+    }
+
+    navigate(`/dashboard?${params.toString()}`, { replace: true })
+  }
+
+  const updateReport = (reportId: string, patch: Partial<Report>) => {
+    setReportOverrides((currentOverrides) => ({
+      ...currentOverrides,
+      [reportId]: {
+        ...currentOverrides[reportId],
+        ...patch,
+      },
+    }))
+  }
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setLoading(false)
+  //   }, 5000)
+
+  //   return () => {
+  //     clearTimeout(timer)
+  //   }
+  // }, [])
 
   return (
     <div className="bg-bg-primary text-text-primary min-h-screen">
@@ -101,13 +250,13 @@ const AdminLayout = () => {
           onToggle={() => {
             setCollapsed(!collapsed)
           }}
-          items={navItems.map((item) => ({
+          items={navItemsWithCounts.map((item) => ({
             ...item,
 
-            isActive: activeRoute === item.label,
+            isActive: activeRoute === item.route,
 
             onClick: () => {
-              setActiveRoute(item.label)
+              handleStatusNavigation(item.route)
             },
           }))}
         />
@@ -118,24 +267,26 @@ const AdminLayout = () => {
           title="Moderation Queue"
           showSearch
           searchPlaceholder="Search reports..."
+          searchValue={searchQuery}
+          onSearch={handleSearch}
           actionsSlot={
-            loading ? (
-              <Skeleton variant={'avatar'} className="shimmer" />
-            ) : (
-              <AvatarMenu name="Admin Mod" />
-            )
+            // loading ? (
+            //   <Skeleton variant={'avatar'} className="shimmer" />
+            // ) : (
+            <AvatarMenu name="Admin Mod" />
+            // )
           }
         />
 
         <main className="p-6 pb-24 md:pb-6">
-          <Outlet />
+          <Outlet context={{ reportOverrides, updateReport } satisfies AdminLayoutOutletContext} />
         </main>
       </div>
       <BottomNav
-        items={navItems}
+        items={navItemsWithCounts}
         activeRoute={activeRoute}
         onNavigate={(route) => {
-          setActiveRoute(route)
+          handleStatusNavigation(route)
 
           window.scrollTo({
             top: 0,

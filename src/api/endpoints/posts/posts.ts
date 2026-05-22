@@ -170,14 +170,14 @@ export function useAddImagesToPost<
   addImagesToPostBody: undefined | AddImagesToPostBody,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof addImagesToPost>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addImagesToPost>>,
-          TError,
-          Awaited<ReturnType<typeof addImagesToPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addImagesToPost>>,
+        TError,
+        Awaited<ReturnType<typeof addImagesToPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -189,14 +189,14 @@ export function useAddImagesToPost<
   addImagesToPostBody?: AddImagesToPostBody,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof addImagesToPost>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addImagesToPost>>,
-          TError,
-          Awaited<ReturnType<typeof addImagesToPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addImagesToPost>>,
+        TError,
+        Awaited<ReturnType<typeof addImagesToPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -353,14 +353,14 @@ export function useAddPoastDiscription<
     query: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof addPoastDiscription>>, TError, TData>
     > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addPoastDiscription>>,
-          TError,
-          Awaited<ReturnType<typeof addPoastDiscription>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addPoastDiscription>>,
+        TError,
+        Awaited<ReturnType<typeof addPoastDiscription>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -373,14 +373,14 @@ export function useAddPoastDiscription<
     query?: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof addPoastDiscription>>, TError, TData>
     > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addPoastDiscription>>,
-          TError,
-          Awaited<ReturnType<typeof addPoastDiscription>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addPoastDiscription>>,
+        TError,
+        Awaited<ReturnType<typeof addPoastDiscription>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -519,14 +519,14 @@ export function useAddPostWithFile<
   addPostWithFileBody: undefined | AddPostWithFileBody,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof addPostWithFile>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addPostWithFile>>,
-          TError,
-          Awaited<ReturnType<typeof addPostWithFile>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addPostWithFile>>,
+        TError,
+        Awaited<ReturnType<typeof addPostWithFile>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -537,14 +537,14 @@ export function useAddPostWithFile<
   addPostWithFileBody?: AddPostWithFileBody,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof addPostWithFile>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addPostWithFile>>,
-          TError,
-          Awaited<ReturnType<typeof addPostWithFile>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addPostWithFile>>,
+        TError,
+        Awaited<ReturnType<typeof addPostWithFile>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -691,14 +691,14 @@ export function useAddRating<
   params: AddRatingParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof addRating>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addRating>>,
-          TError,
-          Awaited<ReturnType<typeof addRating>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addRating>>,
+        TError,
+        Awaited<ReturnType<typeof addRating>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -709,14 +709,14 @@ export function useAddRating<
   params: AddRatingParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof addRating>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addRating>>,
-          TError,
-          Awaited<ReturnType<typeof addRating>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addRating>>,
+        TError,
+        Awaited<ReturnType<typeof addRating>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -858,14 +858,14 @@ export function useAddVote<TData = Awaited<ReturnType<typeof addVote>>, TError =
   params: AddVoteParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof addVote>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addVote>>,
-          TError,
-          Awaited<ReturnType<typeof addVote>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addVote>>,
+        TError,
+        Awaited<ReturnType<typeof addVote>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -873,14 +873,14 @@ export function useAddVote<TData = Awaited<ReturnType<typeof addVote>>, TError =
   params: AddVoteParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof addVote>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof addVote>>,
-          TError,
-          Awaited<ReturnType<typeof addVote>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof addVote>>,
+        TError,
+        Awaited<ReturnType<typeof addVote>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1031,14 +1031,14 @@ export function useDeleteImagesFromPost<
     query: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof deleteImagesFromPost>>, TError, TData>
     > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof deleteImagesFromPost>>,
-          TError,
-          Awaited<ReturnType<typeof deleteImagesFromPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof deleteImagesFromPost>>,
+        TError,
+        Awaited<ReturnType<typeof deleteImagesFromPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1051,14 +1051,14 @@ export function useDeleteImagesFromPost<
     query?: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof deleteImagesFromPost>>, TError, TData>
     > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof deleteImagesFromPost>>,
-          TError,
-          Awaited<ReturnType<typeof deleteImagesFromPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof deleteImagesFromPost>>,
+        TError,
+        Awaited<ReturnType<typeof deleteImagesFromPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1215,14 +1215,14 @@ export function useDescriptionDelete<
   params: DescriptionDeleteParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof descriptionDelete>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof descriptionDelete>>,
-          TError,
-          Awaited<ReturnType<typeof descriptionDelete>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof descriptionDelete>>,
+        TError,
+        Awaited<ReturnType<typeof descriptionDelete>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1233,14 +1233,14 @@ export function useDescriptionDelete<
   params: DescriptionDeleteParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof descriptionDelete>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof descriptionDelete>>,
-          TError,
-          Awaited<ReturnType<typeof descriptionDelete>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof descriptionDelete>>,
+        TError,
+        Awaited<ReturnType<typeof descriptionDelete>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1370,14 +1370,14 @@ export function useGetAllPost<
 >(
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllPost>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAllPost>>,
-          TError,
-          Awaited<ReturnType<typeof getAllPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getAllPost>>,
+        TError,
+        Awaited<ReturnType<typeof getAllPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1387,14 +1387,14 @@ export function useGetAllPost<
 >(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllPost>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAllPost>>,
-          TError,
-          Awaited<ReturnType<typeof getAllPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getAllPost>>,
+        TError,
+        Awaited<ReturnType<typeof getAllPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1522,14 +1522,14 @@ export function useGetAllUserPost<
 >(
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllUserPost>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAllUserPost>>,
-          TError,
-          Awaited<ReturnType<typeof getAllUserPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getAllUserPost>>,
+        TError,
+        Awaited<ReturnType<typeof getAllUserPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1539,14 +1539,14 @@ export function useGetAllUserPost<
 >(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllUserPost>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAllUserPost>>,
-          TError,
-          Awaited<ReturnType<typeof getAllUserPost>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getAllUserPost>>,
+        TError,
+        Awaited<ReturnType<typeof getAllUserPost>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1666,14 +1666,14 @@ export function useGetCommentByUser<
 >(
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getCommentByUser>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCommentByUser>>,
-          TError,
-          Awaited<ReturnType<typeof getCommentByUser>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getCommentByUser>>,
+        TError,
+        Awaited<ReturnType<typeof getCommentByUser>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1683,14 +1683,14 @@ export function useGetCommentByUser<
 >(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getCommentByUser>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getCommentByUser>>,
-          TError,
-          Awaited<ReturnType<typeof getCommentByUser>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getCommentByUser>>,
+        TError,
+        Awaited<ReturnType<typeof getCommentByUser>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1841,14 +1841,14 @@ export function useGetPostDiscription<
   params: GetPostDiscriptionParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getPostDiscription>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getPostDiscription>>,
-          TError,
-          Awaited<ReturnType<typeof getPostDiscription>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getPostDiscription>>,
+        TError,
+        Awaited<ReturnType<typeof getPostDiscription>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1861,14 +1861,14 @@ export function useGetPostDiscription<
     query?: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof getPostDiscription>>, TError, TData>
     > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getPostDiscription>>,
-          TError,
-          Awaited<ReturnType<typeof getPostDiscription>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getPostDiscription>>,
+        TError,
+        Awaited<ReturnType<typeof getPostDiscription>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2015,14 +2015,14 @@ export function usePostDelete<
   params: PostDeleteParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof postDelete>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof postDelete>>,
-          TError,
-          Awaited<ReturnType<typeof postDelete>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof postDelete>>,
+        TError,
+        Awaited<ReturnType<typeof postDelete>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2033,14 +2033,14 @@ export function usePostDelete<
   params: PostDeleteParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof postDelete>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof postDelete>>,
-          TError,
-          Awaited<ReturnType<typeof postDelete>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof postDelete>>,
+        TError,
+        Awaited<ReturnType<typeof postDelete>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2164,14 +2164,14 @@ export function useGetDashboardCounts<
 >(
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getDashboardCounts>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getDashboardCounts>>,
-          TError,
-          Awaited<ReturnType<typeof getDashboardCounts>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getDashboardCounts>>,
+        TError,
+        Awaited<ReturnType<typeof getDashboardCounts>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2183,14 +2183,14 @@ export function useGetDashboardCounts<
     query?: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof getDashboardCounts>>, TError, TData>
     > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getDashboardCounts>>,
-          TError,
-          Awaited<ReturnType<typeof getDashboardCounts>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getDashboardCounts>>,
+        TError,
+        Awaited<ReturnType<typeof getDashboardCounts>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2319,14 +2319,14 @@ export function useGetImage<
   id: string,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getImage>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getImage>>,
-          TError,
-          Awaited<ReturnType<typeof getImage>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getImage>>,
+        TError,
+        Awaited<ReturnType<typeof getImage>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2337,14 +2337,14 @@ export function useGetImage<
   id: string,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getImage>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getImage>>,
-          TError,
-          Awaited<ReturnType<typeof getImage>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getImage>>,
+        TError,
+        Awaited<ReturnType<typeof getImage>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2637,14 +2637,14 @@ export function useUpdatePostDiscription<
     query: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof updatePostDiscription>>, TError, TData>
     > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof updatePostDiscription>>,
-          TError,
-          Awaited<ReturnType<typeof updatePostDiscription>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof updatePostDiscription>>,
+        TError,
+        Awaited<ReturnType<typeof updatePostDiscription>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2657,14 +2657,14 @@ export function useUpdatePostDiscription<
     query?: Partial<
       UseQueryOptions<Awaited<ReturnType<typeof updatePostDiscription>>, TError, TData>
     > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof updatePostDiscription>>,
-          TError,
-          Awaited<ReturnType<typeof updatePostDiscription>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof updatePostDiscription>>,
+        TError,
+        Awaited<ReturnType<typeof updatePostDiscription>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2798,14 +2798,14 @@ export function useUserProfile<
 >(
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof userProfile>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userProfile>>,
-          TError,
-          Awaited<ReturnType<typeof userProfile>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof userProfile>>,
+        TError,
+        Awaited<ReturnType<typeof userProfile>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -2815,14 +2815,14 @@ export function useUserProfile<
 >(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof userProfile>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userProfile>>,
-          TError,
-          Awaited<ReturnType<typeof userProfile>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof userProfile>>,
+        TError,
+        Awaited<ReturnType<typeof userProfile>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }

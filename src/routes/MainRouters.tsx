@@ -33,9 +33,9 @@ export const MainRoutes = {
     {
       path: 'login',
       element: (
-          <PublicRoute>
-            <AuthPage/>
-          </PublicRoute>
+        // <PublicRoute>
+        <AuthPage />
+        // </PublicRoute>
       )
     },
     {
@@ -45,10 +45,10 @@ export const MainRoutes = {
         {
           index: true,
           element: (
-            <ProtectedRoute>
-              <LoginPage />
-            </ProtectedRoute>
-        )
+            // <ProtectedRoute>
+            <LoginPage />
+            // </ProtectedRoute>
+          )
         }
       ]
     },

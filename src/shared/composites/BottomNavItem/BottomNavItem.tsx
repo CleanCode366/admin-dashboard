@@ -54,7 +54,7 @@ export interface BottomNavItemProps {
 
   badge?: number
 
-  badgeVariant?: 'danger' | 'info'
+  badgeVariant?: 'danger' | 'info' | 'success'
 
   onClick?: () => void
 
@@ -89,7 +89,7 @@ export function BottomNavItem({
           <Badge
             size="xs"
             notification
-            variant={badgeVariant === 'danger' ? 'danger' : 'info'}
+            variant={badgeVariant}
             className="absolute -top-2 -right-3"
           >
             {badge}

@@ -55,7 +55,7 @@ export interface SidebarNavItemProps {
 
   badge?: number | string
 
-  badgeVariant?: 'danger' | 'info'
+  badgeVariant?: 'danger' | 'info' | 'success'
 
   className?: string
 
@@ -90,7 +90,7 @@ export function SidebarNavItem({
 
       {/* Badge */}
       {badge !== undefined && (
-        <Badge size="sm" variant={badgeVariant === 'danger' ? 'danger' : 'info'}>
+        <Badge size="sm" variant={badgeVariant}>
           {badge}
         </Badge>
       )}

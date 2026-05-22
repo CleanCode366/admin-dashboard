@@ -46,6 +46,10 @@ export function SearchBar({
   const [query, setQuery] = useState(value)
 
   useEffect(() => {
+    setQuery(value)
+  }, [value])
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       onSearch?.(query)
     }, debounceMs)

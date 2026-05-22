@@ -11,7 +11,7 @@ export interface BottomNavItemConfig {
 
   badge?: number
 
-  badgeVariant?: 'danger' | 'info'
+  badgeVariant?: 'danger' | 'info' | 'success'
 }
 
 export interface BottomNavProps {

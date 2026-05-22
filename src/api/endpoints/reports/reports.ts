@@ -403,14 +403,14 @@ export function useGetReports<
   params: undefined | GetReportsParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getReports>>, TError, TData>> &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getReports>>,
-          TError,
-          Awaited<ReturnType<typeof getReports>>
-        >,
-        'initialData'
-      >
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getReports>>,
+        TError,
+        Awaited<ReturnType<typeof getReports>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -421,14 +421,14 @@ export function useGetReports<
   params?: GetReportsParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getReports>>, TError, TData>> &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getReports>>,
-          TError,
-          Awaited<ReturnType<typeof getReports>>
-        >,
-        'initialData'
-      >
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getReports>>,
+        TError,
+        Awaited<ReturnType<typeof getReports>>
+      >,
+      'initialData'
+    >
   },
   queryClient?: QueryClient
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
