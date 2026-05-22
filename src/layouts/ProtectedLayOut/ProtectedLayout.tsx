@@ -53,7 +53,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     )
 
   if (!isAuthenticated && !isLoading) {
-    const from = `${location.pathname}${location.search}${location.hash}`
+    const from = location.pathname === '/login' ? '/dashboard' : `${location.pathname}${location.search}${location.hash}`
     setPostLoginRedirect(from)
     return <Navigate to={`/login?next=${encodeURIComponent(from)}`} replace state={{ from }} />
   }
@@ -88,7 +88,7 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
       return <Navigate to={pendingRedirect} replace />
     }
 
-    return <Navigate to="/home" replace />
+    return <Navigate to="/dashboard" replace />
   }
 
   return <>{children}</>

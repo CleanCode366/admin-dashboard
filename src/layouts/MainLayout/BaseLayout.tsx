@@ -25,7 +25,7 @@ const BaseLayout: React.FC = () => {
       return;
     }
 
-    const isFallbackLanding = location.pathname === "/" || location.pathname === "/home" || location.pathname === "/login";
+    const isFallbackLanding = location.pathname === "/" || location.pathname === "/dashboard" || location.pathname === "/login";
     if (isFallbackLanding) {
       navigate(pendingRedirect, { replace: true });
     }

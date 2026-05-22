@@ -9,7 +9,7 @@ const NotFound = () => {
             </p>
 
             <Link
-                to="/home"
+                to="/dashboard"
                 className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
             >
                 Go to Home

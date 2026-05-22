@@ -72,7 +72,7 @@ const OAuthCallback = () => {
           if (savedRedirect && savedRedirect.startsWith('/') && !savedRedirect.startsWith('//')) {
             navigate(savedRedirect, { replace: true })
           } else {
-            navigate('/home', { replace: true })
+            navigate('/dashboard', { replace: true })
           }
         } else {
           throw lastError || new Error('OAuth callback failed without an access token')
