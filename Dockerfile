@@ -19,8 +19,8 @@ RUN npm i -g serve
 
 # Copy files and set permissions BEFORE switching to node user
 COPY --from=build /app/dist ./dist
-# COPY env-insjection.sh /app/env.sh
-# RUN chmod +x /app/env.sh
+COPY env-insjection.sh /app/env.sh
+RUN chmod +x /app/env.sh
 
 # Change ownership of all files to node user
 RUN chown -R node:node /app
