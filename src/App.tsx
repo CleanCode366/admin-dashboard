@@ -7,7 +7,7 @@ import router from './routes'
 import { AuthProvider  } from './context/AuthContext'
 // import * from '@mui/styled-engine-sc' as styledEngineSC;,
 // import { LanguageProvider } from './context/LanguageContext'
-import CustomTranslate from './textTranslation/CustomTranslate'
+// import CustomTranslate from './textTranslation/CustomTranslate'
 
 function App() {
   return (
