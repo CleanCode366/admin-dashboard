@@ -6,7 +6,9 @@ import ReportCard from '@/shared/composites/ReportCard'
 
 import { reports } from '@/shared/composites/ReportCard/dummyData'
 import MetricCard from '@/shared/composites/MetricCard'
+import EmptyState from '@/shared/composites/EmptyState'
 
+import { SearchWindowIcon } from '@/shared/illustrations/NoResutsFoundIcon'
 const LoginPage = () => {
   const [selected, setSelected] = useState('all')
 
@@ -42,6 +44,9 @@ const LoginPage = () => {
     },
   ] as const
 
+  // To test the EmptyState icon interchange the commented filteredReports
+  // const filteredReports = []
+  const filteredReports = reports
   return (
     <div className="min-h-screen space-y-6">
       {/* Header */}
@@ -100,20 +105,38 @@ const LoginPage = () => {
 
       {/* Report cards */}
       <div className="space-y-4">
-        {reports.map((report) => (
-          <ReportCard
-            key={report.id}
-            report={report}
-            isExpanded={expandedId === report.id}
-            onToggleExpand={() => {
-              setExpandedId(expandedId === report.id ? null : report.id)
-            }}
-            onAction={(reportId, action) => {
-              console.log('Action:', action, 'on', reportId)
-            }}
-            className="bg-bg-secondary cursor-pointer"
+        {filteredReports.length === 0 ? (
+          <EmptyState
+            icon={<SearchWindowIcon size={72} className="text-text-tertiary" />}
+            title="No results found."
+            description="
+        Try adjusting your filters
+        or search query.
+      "
+            // action={{
+            //   label: 'Clear filters',
+
+            //   onClick: () => {
+            //     setSelected('all')
+            //   },
+            // }}
           />
-        ))}
+        ) : (
+          filteredReports.map((report) => (
+            <ReportCard
+              key={report.id}
+              report={report}
+              isExpanded={expandedId === report.id}
+              onToggleExpand={() => {
+                setExpandedId(expandedId === report.id ? null : report.id)
+              }}
+              onAction={(reportId, action) => {
+                console.log('Action:', action, 'on', reportId)
+              }}
+              className="bg-bg-secondary cursor-pointer"
+            />
+          ))
+        )}
       </div>
     </div>
   )
