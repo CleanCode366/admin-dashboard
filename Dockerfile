@@ -30,4 +30,4 @@ USER node
 
 EXPOSE 3000
 
-# CMD ["/app/env.sh"]
+CMD ["/app/env.sh"]
