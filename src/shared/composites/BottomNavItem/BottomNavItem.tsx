@@ -54,7 +54,7 @@ export interface BottomNavItemProps {
 
   badge?: number
 
-  badgeVariant?: 'danger' | 'info' | 'success'
+  badgeVariant?: 'danger' | 'info' | 'success' | 'warning'
 
   onClick?: () => void
 
@@ -86,12 +86,7 @@ export function BottomNavItem({
         <span className="shrink-0">{icon}</span>
 
         {badge !== undefined && badge > 0 && (
-          <Badge
-            size="xs"
-            notification
-            variant={badgeVariant}
-            className="absolute -top-2 -right-3"
-          >
+          <Badge size="xs" notification variant={badgeVariant} className="absolute -top-2 -right-3">
             {badge}
           </Badge>
         )}

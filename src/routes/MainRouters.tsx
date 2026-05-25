@@ -26,41 +26,37 @@ export const MainRoutes = {
   children: [
     {
       index: true,
-      element: (
-        <Navigate to="dashboard" replace />
-      )
+      element: <Navigate to="dashboard" replace />,
     },
     {
       path: 'login',
       element: (
         <PublicRoute>
-        <AuthPage />
+          <AuthPage />
         </PublicRoute>
-      )
+      ),
     },
     {
       path: 'dashboard',
-      element: <AdminLayout />,
+      element: (
+        <ProtectedRoute>
+          <AdminLayout />
+        </ProtectedRoute>
+      ),
       children: [
         {
           index: true,
-          element: (
-            <ProtectedRoute>
-            <LoginPage />
-            </ProtectedRoute>
-          )
-        }
-      ]
+          element: <LoginPage />,
+        },
+      ],
     },
     {
       path: 'oauth/callback',
-      element: (
-        <OAuthCallback />
-      )
+      element: <OAuthCallback />,
     },
     {
       path: '*',
-      element: <NotFound />
-    }
+      element: <NotFound />,
+    },
   ],
 }

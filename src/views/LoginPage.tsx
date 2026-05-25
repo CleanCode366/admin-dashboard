@@ -4,7 +4,10 @@ import { useOutletContext, useSearchParams } from 'react-router-dom'
 import { ChipGroup } from '@/Chip'
 import { useGetReports, useModerateReport } from '@/api/endpoints/reports/reports'
 import { GetReportsStatus, ModerateReportRequestAction } from '@/api/models'
-import type { GetReportsParams, ModerateReportRequestAction as ModerateReportRequestActionType } from '@/api/models'
+import type {
+  GetReportsParams,
+  ModerateReportRequestAction as ModerateReportRequestActionType,
+} from '@/api/models'
 import AuthContext from '@/context/AuthContext'
 import {
   applyReportOverrides,
@@ -88,14 +91,21 @@ const LoginPage = () => {
     () => (reportsResponse?.status === 200 ? reportsResponse.data.map(toCardReport) : []),
     [reportsResponse]
   )
-  const reports = isOnline
-    ? isAuthenticated
-      ? onlineReports
-      : forceOnlineWithoutAuth
-        ? []
-        : dummyReports
-    : dummyReports
-  const activeReports = useMemo(() => applyReportOverrides(reports, reportOverrides), [reportOverrides, reports])
+  const reports = useMemo(() => {
+    if (isOnline) {
+      if (isAuthenticated) {
+        return onlineReports
+      }
+
+      return forceOnlineWithoutAuth ? [] : dummyReports
+    }
+
+    return dummyReports
+  }, [isAuthenticated, onlineReports])
+  const activeReports = useMemo(
+    () => applyReportOverrides(reports, reportOverrides),
+    [reportOverrides, reports]
+  )
 
   const statusScopedReports = useMemo(
     () => filterReportsBySidebarStatus(activeReports, sidebarStatusFilter),
@@ -126,14 +136,15 @@ const LoginPage = () => {
     ).length
     const aiAutoResolvedCount = activeReports.filter(
       (report) =>
-        (report.status === 'RESOLVED' || report.status === 'DISMISSED') &&
-        !report.resolvedAction
+        (report.status === 'RESOLVED' || report.status === 'DISMISSED') && !report.resolvedAction
     ).length
     const escalatedCount = activeReports.filter(
       (report) => report.status === 'ESCALATED_TO_HUMAN'
     ).length
     const escalationRate =
-      activeReports.length === 0 ? '0%' : `${Math.round((escalatedCount / activeReports.length) * 100)}%`
+      activeReports.length === 0
+        ? '0%'
+        : `${Math.round((escalatedCount / activeReports.length) * 100)}%`
 
     return [
       {
@@ -264,7 +275,7 @@ const LoginPage = () => {
       {/* Report cards */}
       <div className="space-y-4">
         {shouldFetchOnlineReports && isLoading ? (
-          <div className="text-text-secondary rounded-lg bg-bg-secondary px-4 py-6 text-sm">
+          <div className="text-text-secondary bg-bg-secondary rounded-lg px-4 py-6 text-sm">
             Loading reports...
           </div>
         ) : visibleReports.length === 0 ? (
@@ -275,13 +286,13 @@ const LoginPage = () => {
           Try adjusting your filters
           or search query.
         "
-          // action={{
-          //   label: 'Clear filters',
+            // action={{
+            //   label: 'Clear filters',
 
-          //   onClick: () => {
-          //     setSelected('all')
-          //   },
-          // }}
+            //   onClick: () => {
+            //     setSelected('all')
+            //   },
+            // }}
           />
         ) : (
           visibleReports.map((report) => (

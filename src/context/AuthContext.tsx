@@ -25,7 +25,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
   const navigateToLogin = useCallback((preserveCurrentPath: boolean) => {
     const currentPath = `${window.location.pathname}${window.location.search}${window.location.hash}`
     const isAuthFlowPath =
-      window.location.pathname === '/login' || window.location.pathname === '/oauth/callback'
+      window.location.pathname === '/admin/login' || window.location.pathname === '/oauth/callback'
 
     if (preserveCurrentPath && !isAuthFlowPath) {
       setPostLoginRedirect(currentPath)
@@ -36,8 +36,8 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
       return
     }
 
-    if (window.location.pathname !== '/login') {
-      window.location.href = '/login'
+    if (window.location.pathname !== '/admin/login') {
+      window.location.href = '/admin/login'
     }
   }, [])
 
