@@ -55,7 +55,7 @@ export interface SidebarNavItemProps {
 
   badge?: number | string
 
-  badgeVariant?: 'danger' | 'info' | 'success'
+  badgeVariant?: 'danger' | 'info' | 'success' | 'warning'
 
   className?: string
 
@@ -83,7 +83,7 @@ export function SidebarNavItem({
     >
       {/* Left side */}
       <div className="flex min-w-0 items-center gap-3">
-        <span className="shrink-0">{icon}</span>
+        <span className="mt-0.75 shrink-0">{icon}</span>
 
         <span className="truncate">{label}</span>
       </div>
