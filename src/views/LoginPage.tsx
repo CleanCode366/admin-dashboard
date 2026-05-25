@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useOutletContext, useSearchParams } from 'react-router-dom'
 
 import { ChipGroup } from '@/Chip'
@@ -27,7 +27,10 @@ import { reports as dummyReports } from '@/shared/composites/ReportCard/dummyDat
 import MetricCard from '@/shared/composites/MetricCard'
 import EmptyState from '@/shared/composites/EmptyState'
 import { toast } from '@/shared/integrations/Toast'
+import { Button } from '@/shared/primitives/Button'
 
+import NoUsersIcon from '@/shared/illustrations/NoUsersIcon'
+import NoAnalyticsIcon from '@/shared/illustrations/NoAnalyticsIcon'
 import { SearchWindowIcon } from '@/shared/illustrations/NoResutsFoundIcon'
 
 const actionRequestMap: Record<ModerationAction, ModerateReportRequestActionType | undefined> = {
@@ -54,11 +57,15 @@ const actionStatusMap: Record<ModerationAction, 'PENDING' | 'RESOLVED' | 'DISMIS
   DISMISS: 'DISMISSED',
 }
 
+const REPORTS_PER_PAGE = 4
+
 const LoginPage = () => {
   const [searchParams] = useSearchParams()
   const { reportOverrides, updateReport } = useOutletContext<AdminLayoutOutletContext>()
   const { isAuthenticated } = useContext(AuthContext)
   const [selected, setSelected] = useState('all')
+  const [currentPage, setCurrentPage] = useState(1)
+  const dashboardView = searchParams.get('view')
   const sidebarStatusFilter = parseSidebarStatusFilter(searchParams.get('status'))
   const searchQuery = searchParams.get('q') ?? ''
   const shouldFetchOnlineReports = isOnline && isAuthenticated
@@ -118,6 +125,33 @@ const LoginPage = () => {
     () => filteredReports.filter((report) => matchesSearchQuery(report, searchQuery)),
     [filteredReports, searchQuery]
   )
+  const totalPages = Math.max(1, Math.ceil(visibleReports.length / REPORTS_PER_PAGE))
+  const paginatedReports = useMemo(() => {
+    const startIndex = (currentPage - 1) * REPORTS_PER_PAGE
+    return visibleReports.slice(startIndex, startIndex + REPORTS_PER_PAGE)
+  }, [currentPage, visibleReports])
+  const paginationRangeLabel = useMemo(() => {
+    if (visibleReports.length === 0) return 'Showing 0 reports'
+
+    const start = (currentPage - 1) * REPORTS_PER_PAGE + 1
+    const end = Math.min(currentPage * REPORTS_PER_PAGE, visibleReports.length)
+    return `Showing ${start}-${end} of ${visibleReports.length} reports`
+  }, [currentPage, visibleReports.length])
+  const pageNumbers = useMemo(
+    () => Array.from({ length: totalPages }, (_, index) => index + 1),
+    [totalPages]
+  )
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selected, sidebarStatusFilter, searchQuery, dashboardView])
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages)
+      setExpandedId(null)
+    }
+  }, [currentPage, totalPages])
 
   const metricCardData = useMemo(() => {
     const pendingCount = activeReports.filter((report) => report.status === 'PENDING').length
@@ -194,6 +228,26 @@ const LoginPage = () => {
     } catch {
       toast.error('Unable to process report action right now')
     }
+  }
+
+  if (dashboardView === 'users') {
+    return (
+      <EmptyState
+        icon={<NoUsersIcon />}
+        title="No users found"
+        description="No such user found."
+      />
+    )
+  }
+
+  if (dashboardView === 'analytics') {
+    return (
+      <EmptyState
+        icon={<NoAnalyticsIcon />}
+        title="Not enough data yet"
+        description="Analytics will appear once enough moderation activity has been collected."
+      />
+    )
   }
 
   return (
@@ -284,18 +338,69 @@ const LoginPage = () => {
           // }}
           />
         ) : (
-          visibleReports.map((report) => (
-            <ReportCard
-              key={report.id}
-              report={report}
-              isExpanded={expandedId === report.id}
-              onToggleExpand={() => {
-                setExpandedId(expandedId === report.id ? null : report.id)
-              }}
-              onAction={handleReportAction}
-              className="bg-bg-secondary cursor-pointer"
-            />
-          ))
+          <>
+            {paginatedReports.map((report) => (
+              <ReportCard
+                key={report.id}
+                report={report}
+                isExpanded={expandedId === report.id}
+                onToggleExpand={() => {
+                  setExpandedId(expandedId === report.id ? null : report.id)
+                }}
+                onAction={handleReportAction}
+                className="bg-bg-secondary cursor-pointer"
+              />
+            ))}
+
+            {totalPages > 1 && (
+              <div className="flex flex-col gap-3 rounded-lg border border-border-secondary bg-bg-secondary px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="text-text-secondary text-sm">{paginationRangeLabel}</div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => {
+                      setCurrentPage((page) => Math.max(1, page - 1))
+                      setExpandedId(null)
+                    }}
+                    isDisabled={currentPage === 1}
+                  >
+                    Previous
+                  </Button>
+
+                  {pageNumbers.map((pageNumber) => (
+                    <Button
+                      key={pageNumber}
+                      type="button"
+                      variant={currentPage === pageNumber ? 'primary' : 'secondary'}
+                      size="sm"
+                      onClick={() => {
+                        setCurrentPage(pageNumber)
+                        setExpandedId(null)
+                      }}
+                    >
+                      {pageNumber}
+                    </Button>
+                  ))}
+
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => {
+                      setCurrentPage((page) => Math.min(totalPages, page + 1))
+                      setExpandedId(null)
+                    }}
+                    isDisabled={currentPage === totalPages}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

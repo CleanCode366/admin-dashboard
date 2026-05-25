@@ -150,7 +150,19 @@ const AdminLayout = () => {
   )
 
   const syncActiveRouteFromSearch = () => {
+    const view = new URLSearchParams(location.search).get('view')
     const status = new URLSearchParams(location.search).get('status')
+
+    if (view === 'users') {
+      setActiveRoute('/users')
+      return
+    }
+
+    if (view === 'analytics') {
+      setActiveRoute('/analytics')
+      return
+    }
+
     if (status === 'pending') {
       setActiveRoute('/pending')
       return
@@ -176,6 +188,22 @@ const AdminLayout = () => {
   const handleStatusNavigation = (route: string) => {
     setActiveRoute(route)
     const params = new URLSearchParams(location.search)
+
+    if (route === '/users') {
+      params.set('view', 'users')
+      params.delete('status')
+      navigate(`/dashboard?${params.toString()}`)
+      return
+    }
+
+    if (route === '/analytics') {
+      params.set('view', 'analytics')
+      params.delete('status')
+      navigate(`/dashboard?${params.toString()}`)
+      return
+    }
+
+    params.delete('view')
 
     if (route === '/queue') {
       params.set('status', 'queue')

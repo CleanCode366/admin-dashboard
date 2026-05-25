@@ -54,7 +54,7 @@ export interface BottomNavItemProps {
 
   badge?: number
 
-  badgeVariant?: 'danger' | 'info' | 'success'
+  badgeVariant?: 'danger' | 'info' | 'success' | 'warning'
 
   onClick?: () => void
 
