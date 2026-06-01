@@ -18,7 +18,7 @@ export interface SidebarNavLink {
 
   badge?: number | string
 
-  badgeVariant?: 'danger' | 'info'
+  badgeVariant?: 'danger' | 'info' | 'success' | 'warning'
 
   onClick?: () => void
 }

@@ -1,14 +1,32 @@
-import { useEffect, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+
+import { useGetReports } from '@/api/endpoints/reports/reports'
+
+import AuthContext from '@/context/AuthContext'
+
+import {
+  applyReportOverrides,
+  forceOnlineWithoutAuth,
+  getSidebarStatusCounts,
+  isOnline,
+  toCardReport,
+} from '@/features/reports/reportViewModel'
+
+import type { Report } from '@/shared/types/report'
 
 import { SidebarNav } from '@/shared/composites/SidebarNav'
+
+import { reports as dummyReports } from '@/shared/composites/ReportCard/dummyData'
 
 import { Topbar } from '@/shared/composites/Topbar'
 
 import { AvatarMenu } from '@/shared/composites/AvatarMenu/AvatarMenu'
 
 import { ToastProvider } from '@/shared/integrations/Toast'
+
+import BottomNav from '@/shared/composites/BottomNav/BottomNav'
 
 import {
   CheckIcon,
@@ -17,8 +35,8 @@ import {
   QueueListIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
-import { Skeleton } from '@/shared/primitives/Skeleton'
-import BottomNav from '@/shared/composites/BottomNav/BottomNav'
+
+import HistoryIcon from '@/shared/illustrations/HistoryIcon'
 
 const navItems = [
   {
@@ -30,7 +48,19 @@ const navItems = [
 
     badge: 3,
 
-    badgeVariant: 'danger' as const,
+    badgeVariant: 'info' as const,
+  },
+
+  {
+    label: 'Pending',
+
+    route: '/pending',
+
+    icon: <HistoryIcon className="size-4" />,
+
+    badge: 0,
+
+    badgeVariant: 'warning' as const,
   },
 
   {
@@ -42,7 +72,7 @@ const navItems = [
 
     badge: 12,
 
-    badgeVariant: 'info' as const,
+    badgeVariant: 'success' as const,
   },
 
   {
@@ -74,40 +104,169 @@ const navItems = [
   },
 ]
 
+export interface AdminLayoutOutletContext {
+  reportOverrides: Record<string, Partial<Report>>
+
+  updateReport: (reportId: string, patch: Partial<Report>) => void
+}
+
 const AdminLayout = () => {
+  const location = useLocation()
+
+  const navigate = useNavigate()
+
+  const { isAuthenticated } = useContext(AuthContext)
+
   const [collapsed, setCollapsed] = useState(false)
-  const [activeRoute, setActiveRoute] = useState('/queue')
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 5000)
+  const [reportOverrides, setReportOverrides] = useState<Record<string, Partial<Report>>>({})
 
-    return () => {
-      clearTimeout(timer)
+  const searchQuery = new URLSearchParams(location.search).get('q') ?? ''
+
+  const shouldFetchOnlineReports = isOnline && isAuthenticated
+
+  const { data: reportsResponse } = useGetReports(undefined, {
+    query: {
+      enabled: shouldFetchOnlineReports,
+    },
+  })
+
+  const onlineReports = useMemo(
+    () => (reportsResponse?.status === 200 ? reportsResponse.data.map(toCardReport) : []),
+    [reportsResponse]
+  )
+
+  const reports = useMemo(() => {
+    if (isOnline) {
+      if (isAuthenticated) {
+        return onlineReports
+      }
+
+      return forceOnlineWithoutAuth ? [] : dummyReports
     }
-  }, [])
+
+    return dummyReports
+  }, [isAuthenticated, onlineReports])
+
+  const activeRoute = useMemo(() => {
+    const status = new URLSearchParams(location.search).get('status')
+
+    if (status === 'pending') {
+      return '/pending'
+    }
+
+    if (status === 'resolved') {
+      return '/resolved'
+    }
+
+    if (status === 'escalated') {
+      return '/escalated'
+    }
+
+    return '/queue'
+  }, [location.search])
+
+  const activeReports = useMemo(
+    () => applyReportOverrides(reports, reportOverrides),
+    [reports, reportOverrides]
+  )
+
+  const statusCounts = useMemo(() => getSidebarStatusCounts(activeReports), [activeReports])
+
+  const navItemsWithCounts = useMemo(
+    () =>
+      navItems.map((item) => ({
+        ...item,
+
+        badge:
+          item.route === '/queue'
+            ? statusCounts.queue
+            : item.route === '/pending'
+              ? statusCounts.pending
+              : item.route === '/resolved'
+                ? statusCounts.resolved
+                : item.route === '/escalated'
+                  ? statusCounts.escalated
+                  : item.badge,
+      })),
+    [statusCounts]
+  )
+
+  const handleStatusNavigation = (route: string) => {
+    const params = new URLSearchParams(location.search)
+
+    if (route === '/queue') {
+      params.set('status', 'queue')
+    }
+
+    if (route === '/resolved') {
+      params.set('status', 'resolved')
+    }
+
+    if (route === '/pending') {
+      params.set('status', 'pending')
+    }
+
+    if (route === '/escalated') {
+      params.set('status', 'escalated')
+    }
+
+    navigate(`/dashboard?${params.toString()}`)
+  }
+
+  const handleSearch = (query: string) => {
+    const params = new URLSearchParams(location.search)
+
+    const trimmedQuery = query.trim()
+
+    if (trimmedQuery) {
+      params.set('q', trimmedQuery)
+    } else {
+      params.delete('q')
+    }
+
+    if (!params.get('status')) {
+      params.set('status', 'queue')
+    }
+
+    navigate(`/dashboard?${params.toString()}`, {
+      replace: true,
+    })
+  }
+
+  const updateReport = (reportId: string, patch: Partial<Report>) => {
+    setReportOverrides((currentOverrides) => ({
+      ...currentOverrides,
+
+      [reportId]: {
+        ...currentOverrides[reportId],
+
+        ...patch,
+      },
+    }))
+  }
 
   return (
     <div className="bg-bg-primary text-text-primary min-h-screen">
       <ToastProvider />
 
       <aside
-        className={`fixed top-0 left-0 z-30 hidden h-screen transition-all duration-300 md:block ${collapsed ? 'w-[72px]' : 'w-64'} `}
+        className={`fixed top-0 left-0 z-30 hidden h-screen transition-all duration-300 md:block ${
+          collapsed ? 'w-[72px]' : 'w-64'
+        } `}
       >
         <SidebarNav
           collapsed={collapsed}
           onToggle={() => {
             setCollapsed(!collapsed)
           }}
-          items={navItems.map((item) => ({
+          items={navItemsWithCounts.map((item) => ({
             ...item,
 
-            isActive: activeRoute === item.label,
+            isActive: activeRoute === item.route,
 
             onClick: () => {
-              setActiveRoute(item.label)
+              handleStatusNavigation(item.route)
             },
           }))}
         />
@@ -118,24 +277,28 @@ const AdminLayout = () => {
           title="Moderation Queue"
           showSearch
           searchPlaceholder="Search reports..."
-          actionsSlot={
-            loading ? (
-              <Skeleton variant={'avatar'} className="shimmer" />
-            ) : (
-              <AvatarMenu name="Admin Mod" />
-            )
-          }
+          searchValue={searchQuery}
+          onSearch={handleSearch}
+          actionsSlot={<AvatarMenu name="Admin Mod" />}
         />
 
         <main className="p-6 pb-24 md:pb-6">
-          <Outlet />
+          <Outlet
+            context={
+              {
+                reportOverrides,
+                updateReport,
+              } satisfies AdminLayoutOutletContext
+            }
+          />
         </main>
       </div>
+
       <BottomNav
-        items={navItems}
+        items={navItemsWithCounts}
         activeRoute={activeRoute}
         onNavigate={(route) => {
-          setActiveRoute(route)
+          handleStatusNavigation(route)
 
           window.scrollTo({
             top: 0,

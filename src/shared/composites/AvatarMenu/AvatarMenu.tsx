@@ -15,6 +15,7 @@ import {
 import { useTheme } from '@/shared/theme'
 import { Button } from '@/shared/primitives/Button'
 import { useToast } from '@/hooks/useToast'
+import { NavLink } from 'react-router-dom'
 
 export interface AvatarMenuProps {
   name: string
@@ -138,14 +139,16 @@ export function AvatarMenu({
             />
           </Button>
           <div className="bg-border-tertiary my-1 h-px" />
-          <Button
-            onClick={onLogout}
-            className="contents-center text-text-danger hover:bg-bg-danger flex w-full cursor-pointer flex-row items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition"
-            variant={'danger'}
-            leftIcon={<ArrowRightStartOnRectangleIcon className="h-5 w-5" />}
-          >
-            <div>Logout</div>
-          </Button>
+          <NavLink to="/login">
+            <Button
+              onClick={onLogout}
+              className="contents-center text-text-danger hover:bg-bg-danger flex w-full cursor-pointer flex-row items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition"
+              variant={'danger'}
+              leftIcon={<ArrowRightStartOnRectangleIcon className="h-5 w-5" />}
+            >
+              <div>Logout</div>
+            </Button>
+          </NavLink>
         </div>
       )}
     </div>

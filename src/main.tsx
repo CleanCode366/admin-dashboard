@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from './App.tsx'
 import { StyleSheetManager } from 'styled-components'
 import './index.css'
@@ -31,6 +32,7 @@ function getCSPNonce(): string | undefined {
 }
 
 const nonce = getCSPNonce()
+const queryClient = new QueryClient()
 
 // Log nonce status in development
 if (import.meta.env.DEV) {
@@ -45,9 +47,11 @@ if (import.meta.env.PROD && !nonce) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <StyleSheetManager disableCSSOMInjection>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
     </StyleSheetManager>
   </StrictMode>
 )

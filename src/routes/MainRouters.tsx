@@ -13,14 +13,50 @@
 // import { Navigate } from 'react-router-dom'
 import LoginPage from '@/views/LoginPage'
 import AdminLayout from '@/layouts/AdminLayout'
+import BaseLayout from '@/layouts/MainLayout/BaseLayout'
+import { ProtectedRoute, PublicRoute } from '@/layouts/ProtectedLayOut/ProtectedLayout'
+import AuthPage from '@/views/Auth/AuthPage'
+import { Navigate } from 'react-router-dom'
+import NotFound from '@/views/NotFound/NotFound'
+import OAuthCallback from '@/views/Auth/OAuthCallBack'
 
 export const MainRoutes = {
   path: '/',
-  element: <AdminLayout />,
+  element: <BaseLayout />,
   children: [
     {
       index: true,
-      element: <LoginPage />,
+      element: <Navigate to="dashboard" replace />,
+    },
+    {
+      path: 'login',
+      element: (
+        <PublicRoute>
+          <AuthPage />
+        </PublicRoute>
+      ),
+    },
+    {
+      path: 'dashboard',
+      element: (
+        <ProtectedRoute>
+          <AdminLayout />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          index: true,
+          element: <LoginPage />,
+        },
+      ],
+    },
+    {
+      path: 'oauth/callback',
+      element: <OAuthCallback />,
+    },
+    {
+      path: '*',
+      element: <NotFound />,
     },
   ],
 }

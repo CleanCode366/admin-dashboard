@@ -9,6 +9,10 @@ export interface TopbarProps {
 
   searchPlaceholder?: string
 
+  searchValue?: string
+
+  onSearch?: (query: string) => void
+
   searchSlot?: React.ReactNode
 
   actionsSlot?: React.ReactNode
@@ -25,6 +29,8 @@ export function Topbar({
   showSearch,
   actionsSlot,
   searchPlaceholder,
+  searchValue = '',
+  onSearch,
   className = '',
 }: TopbarProps) {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
@@ -52,10 +58,9 @@ export function Topbar({
             <div className="w-full max-w-xl" role="search">
               {searchSlot || (
                 <SearchBar
+                  value={searchValue}
                   placeholder={searchPlaceholder}
-                  onSearch={(query) => {
-                    console.log(query)
-                  }}
+                  onSearch={onSearch}
                 />
               )}
             </div>
@@ -88,13 +93,7 @@ export function Topbar({
         size="sm"
       >
         <div role="search" aria-label="Mobile report search">
-          <SearchBar
-            // autoFocus
-            placeholder={searchPlaceholder}
-            onSearch={(query) => {
-              console.log(query)
-            }}
-          />
+          <SearchBar value={searchValue} placeholder={searchPlaceholder} onSearch={onSearch} />
         </div>
       </Modal>
     </>
