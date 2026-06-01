@@ -57,7 +57,6 @@ const actionStatusMap: Record<ModerationAction, 'PENDING' | 'RESOLVED' | 'DISMIS
   DISMISS: 'DISMISSED',
 }
 
-import { SearchWindowIcon } from '@/shared/illustrations/NoResutsFoundIcon'
 const LoginPage = () => {
   const [searchParams] = useSearchParams()
   const { reportOverrides, updateReport } = useOutletContext<AdminLayoutOutletContext>()
@@ -208,9 +207,6 @@ const LoginPage = () => {
     }
   }
 
-  // To test the EmptyState icon interchange the commented filteredReports
-  // const filteredReports = []
-  const filteredReports = reports
   return (
     <div className="min-h-screen space-y-6">
       {/* Header */}
