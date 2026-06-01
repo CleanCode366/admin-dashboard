@@ -28,6 +28,6 @@ RUN chown -R node:node /app
 # Now switch to non-root user
 USER node
 
-EXPOSE 3001
+EXPOSE 3000
 
 CMD ["/app/env.sh"]
