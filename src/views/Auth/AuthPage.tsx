@@ -58,7 +58,6 @@ const AuthPage: React.FC = () => {
       <div className="fixed top-4 right-0 left-0 z-50 flex items-start justify-between px-4 sm:px-6">
         <div className="flex flex-col">
           <h2 className="text-text-primary text-lg font-semibold">ModerationOS</h2>
-          <span className="text-xs">Admin Panel</span>
         </div>
         <ThemeToggleSwitch className="relative" />
       </div>

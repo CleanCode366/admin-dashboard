@@ -2,7 +2,7 @@ import { ModerationReportActionTaken, ModerationReportStatus } from '@/api/model
 import type { ModerationReport } from '@/api/models'
 import type { ModerationAction, Report } from '@/shared/types/report'
 
-export const isOnline = false
+export const isOnline = true
 export const forceOnlineWithoutAuth = true
 
 export const reasonFilterMap = {
@@ -161,10 +161,8 @@ export const getSidebarStatusCounts = (reports: Report[]) => ({
   escalated: reports.filter((report) => report.status === 'ESCALATED_TO_HUMAN').length,
 })
 
-const matchesReasonFilter = (
-  report: Report,
-  filterKey: keyof typeof reasonFilterMap
-) => reasonFilterMap[filterKey].includes(normalizeReasonKey(report.reportReason))
+const matchesReasonFilter = (report: Report, filterKey: keyof typeof reasonFilterMap) =>
+  reasonFilterMap[filterKey].includes(normalizeReasonKey(report.reportReason))
 
 export const getReasonCounts = (reports: Report[]) => ({
   spam: reports.filter((report) => matchesReasonFilter(report, 'spam')).length,
